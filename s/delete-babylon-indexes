@@ -1,0 +1,4 @@
+#!/bin/bash
+
+find node_modules/@babylonjs/core -type f \( -name index.js -o -name index.d.ts \) | xargs rm -f
+

@@ -10,13 +10,20 @@
 		"x",
 		"s"
 	],
+	"bin": {
+		"delete-babylon-indexes": "s/delete-babylon-indexes"
+	},
 	"scripts": {
+		"delete-babylon-indexes": "s/delete-babylon-indexes",
 		"build": "turtle build --out=x -v",
 		"start": "http-server x",
 		"test": "exit 0",
 		"test-watch": "chokidar 'x/**/*.js' -c 'npm test'"
 	},
 	"dependencies": {
+		"@babylonjs/core": "^8.3.1",
+		"@babylonjs/loaders": "^8.3.1",
+		"@benev/math": "^0.0.0-1",
 		"@e280/stz": "^0.0.0-3"
 	},
 	"devDependencies": {
