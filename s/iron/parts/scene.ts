@@ -1,10 +1,10 @@
 
+import {Vec4} from "@benev/math"
 import {Scene} from "@babylonjs/core/scene.js"
 import {Color4} from "@babylonjs/core/Maths/math.color.js"
 import {setOpenGLOrientationForUV} from "@babylonjs/core/Compat/compatibilityOptions.js"
 
 import {AnyEngine} from "./types.js"
-import {Vec4} from "../../math/vec4.js"
 
 export type SimpleSceneOptions = {
 	engine: AnyEngine
@@ -26,7 +26,7 @@ export function make_scene({
 	})
 
 	setOpenGLOrientationForUV(true)
-	scene.clearColor = new Color4(...background)
+	scene.clearColor = new Color4(...background.array())
 	scene.detachControl()
 	scene.useRightHandedSystem = true
 

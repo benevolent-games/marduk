@@ -24,7 +24,8 @@
 		"@babylonjs/core": "^8.3.1",
 		"@babylonjs/loaders": "^8.3.1",
 		"@benev/math": "^0.0.0-1",
-		"@e280/stz": "^0.0.0-3"
+		"@benev/slate": "^0.3.0",
+		"@e280/stz": "^0.0.0-4"
 	},
 	"devDependencies": {
 		"@benev/turtle": "^0.6.8",

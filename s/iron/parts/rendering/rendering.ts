@@ -1,11 +1,12 @@
 
-import {pubsub} from "@benev/slate"
+import {sub} from "@e280/stz"
+import {Degrees} from "@benev/math"
+
 import {Scene} from "@babylonjs/core/scene.js"
 import {Camera} from "@babylonjs/core/Cameras/camera.js"
 import {Vector3} from "@babylonjs/core/Maths/math.vector.js"
 import {ArcRotateCamera} from "@babylonjs/core/Cameras/arcRotateCamera.js"
 
-import {radians} from "../../../math/scalar.js"
 import {setup_effects} from "./effects/setup.js"
 import {EffectRig, Effects} from "./effects/types.js"
 import {standard_effects} from "./effects/standard.js"
@@ -15,7 +16,7 @@ export class Rendering {
 
 	static effects = standard_effects
 	readonly fallbackCamera: ArcRotateCamera
-	readonly onEffectsChange = pubsub<[Partial<Effects> | null]>()
+	readonly onEffectsChange = sub<[Partial<Effects> | null]>()
 
 	#scene: Scene
 	#camera!: Camera
@@ -35,7 +36,7 @@ export class Rendering {
 
 		this.fallbackCamera = (() => {
 			const alpha = 0
-			const beta = radians.from.degrees(60)
+			const beta = Degrees.toRadians(60)
 			const radius = 2
 			const target = new Vector3(0, 1.5, 0)
 			return new ArcRotateCamera(
@@ -78,7 +79,7 @@ export class Rendering {
 			: {effects: null, pipelines: [], dispose: () => {}}
 
 		this.#attachCamera(camera)
-		this.onEffectsChange.publish(this.#rig.effects)
+		this.onEffectsChange.pub(this.#rig.effects)
 	}
 
 	#detachCamera(camera: Camera) {

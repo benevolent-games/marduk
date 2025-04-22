@@ -1,5 +1,5 @@
 
-import {debounce} from "@benev/slate/x/tools/debounce/debounce.js"
+import {debounce} from "@e280/stz"
 
 /** use a resize observer to maintain the given resolution ratio for the size of the canvas */
 export class CanvasScaler {

@@ -1,16 +1,16 @@
 
-import {pubsub} from "@benev/slate"
+import {sub} from "@e280/stz"
 import {Scene} from "@babylonjs/core/scene.js"
 
 import {AnyEngine} from "./types.js"
-import {DeltaTimer} from "../../tools/delta_timer.js"
+import {DeltaTimer} from "./delta-timer.js"
 
 export class Gameloop {
 	static make = (engine: AnyEngine, scenes: Scene[]) => (
 		new this(engine, scenes)
 	)
 
-	readonly on = pubsub<[number]>()
+	readonly on = sub<[number]>()
 	delta = new DeltaTimer({min_hertz: 10, max_hertz: 300})
 
 	#starters: (() => () => void)[] = []
@@ -24,7 +24,7 @@ export class Gameloop {
 		this.register(() => {
 			const fn = () => {
 				const ms = this.delta.measure()
-				this.on.publish(ms)
+				this.on.pub(ms)
 				for (const scene of this.scenes)
 					scene.render()
 			}
