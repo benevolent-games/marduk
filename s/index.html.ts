@@ -36,7 +36,10 @@ export default template(async basic => {
 			})}
 		`,
 		body: html`
-			<h1>@benev/bab</h1>
+			<section>
+				<h1>@benev/bab</h1>
+				<p>see it on <a href="https://github.com/benevolent-games/bab">github</a></p>
+			</section>
 		`,
 	})
 })
