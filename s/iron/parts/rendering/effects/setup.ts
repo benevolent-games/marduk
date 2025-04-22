@@ -12,6 +12,7 @@ import {SSAO2RenderingPipeline} from "@babylonjs/core/PostProcesses/RenderPipeli
 import {DefaultRenderingPipeline} from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline.js"
 
 import {EffectRig, Effects} from "./types.js"
+import {label} from "../../../../tools/label.js"
 
 export function setup_effects(scene: Scene, effects: Partial<Effects>, camera: Camera): EffectRig {
 	const pipelines: PostProcessRenderPipeline[] = []

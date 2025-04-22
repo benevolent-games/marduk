@@ -1,3 +1,3 @@
 
-# `@benev/bab`
+# @benev/bab
 

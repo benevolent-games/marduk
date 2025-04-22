@@ -14,9 +14,17 @@
 		"delete-babylon-indexes": "s/delete-babylon-indexes"
 	},
 	"scripts": {
+		"build": "run-s clean delete-babylon-indexes build-code build-ssg links",
+		"clean": "rm -rf x",
 		"delete-babylon-indexes": "s/delete-babylon-indexes",
-		"build": "turtle build --out=x -v",
-		"start": "http-server x",
+		"build-code": "turtle build --out=x",
+		"build-ssg": "turtle ssg --in=s,x --out=x",
+		"start": "run-p start-http start-turtle",
+		"start-http": "http-server x",
+		"start-turtle": "turtle watch --in=s,x --out=x -v",
+		"links": "run-s links-s links-assets",
+		"links-s": "ln -s \"$(realpath s)\" x/s",
+		"links-assets": "ln -s \"$(realpath assets)\" x/assets",
 		"test": "exit 0",
 		"test-watch": "chokidar 'x/**/*.js' -c 'npm test'"
 	},
@@ -28,7 +36,7 @@
 		"@e280/stz": "^0.0.0-4"
 	},
 	"devDependencies": {
-		"@benev/turtle": "^0.6.8",
+		"@benev/turtle": "^0.6.9",
 		"chokidar": "^4.0.3",
 		"chokidar-cli": "^3.0.0",
 		"cynic": "^0.2.1",
