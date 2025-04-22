@@ -7,7 +7,9 @@ export * from "./parts/load-glb/fix_emissive_colors_by_converting_them_to_gamma_
 export * from "./parts/rendering/rendering.js"
 export * from "./parts/rendering/effects/types.js"
 
-export * from "./parts/canvas.js"
+export * from "./parts/canvas-rezzer.js"
+export * from "./parts/canvas-scaler.js"
+export * from "./parts/delta-timer.js"
 export * from "./parts/engine.js"
 export * from "./parts/gameloop.js"
 export * from "./parts/pointer-locker.js"

@@ -33,7 +33,7 @@
 		"@babylonjs/loaders": "^8.3.1",
 		"@benev/math": "^0.0.0-1",
 		"@benev/slate": "^0.3.0",
-		"@e280/stz": "^0.0.0-4"
+		"@e280/stz": "^0.0.0-5"
 	},
 	"devDependencies": {
 		"@benev/turtle": "^0.6.9",
