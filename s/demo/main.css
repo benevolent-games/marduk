@@ -37,8 +37,8 @@ html, body {
 	font-size: 16px;
 	min-height: 100%;
 
-	color: gray;
-	background: black;
+	color: #aaa;
+	background: #111;
 }
 
 body {

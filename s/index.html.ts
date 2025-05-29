@@ -16,7 +16,7 @@ export default template(async basic => {
 		title: "@benev/marduk",
 		head: html`
 			<link rel="icon" href="${favicon}"/>
-			<style>${unsanitized(await read_file("x/demo/style.css"))}</style>
+			<style>${unsanitized(await read_file("x/demo/main.css"))}</style>
 			<meta data-commit-hash="${hash}"/>
 			<meta data-version="${(await read_json("package.json")).version}"/>
 
@@ -39,6 +39,8 @@ export default template(async basic => {
 			<section>
 				<h1>@benev/marduk</h1>
 				<p>see it on <a href="https://github.com/benevolent-games/marduk">github</a></p>
+
+				<marduk-thunder></marduk-thunder>
 			</section>
 		`,
 	})

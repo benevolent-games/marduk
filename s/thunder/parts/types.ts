@@ -17,6 +17,7 @@ export type ThunderSchematic<Fs extends FigmentSpec> = AsSchematic<{
 }>
 
 export type FigmentSpec = {[kind: string]: any}
+export type AsFigmentSpec<Fs extends FigmentSpec> = Fs
 
 export type FigmentLifecycle<Kind, Data> = {
 	create: (id: FigmentId, kind: Kind, data: Data) => void

@@ -14,7 +14,7 @@ export class CanvasRezzer {
 		) {
 		canvas.width = 100
 		canvas.height = 100
-		nap().then(() => this.#recalibrate)
+		nap().then(() => this.#recalibrate())
 		new ResizeObserver(() => this.#recalibrate())
 			.observe(canvas as any)
 	}

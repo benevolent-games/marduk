@@ -7,8 +7,8 @@ export type ThunderHostOptions = {
 	workerUrl: URL | string
 }
 
-export class Thunder<F extends FigmentSpec> {
-	constructor(public thread: Comrade.Thread<ThunderSchematic<F>>) {}
+export class Thunder<Fs extends FigmentSpec = any> {
+	constructor(public thread: Comrade.Thread<ThunderSchematic<Fs>>) {}
 
 	static setupWorker = setupThunderWorker
 
