@@ -2,9 +2,9 @@
 import "@benev/slate/x/node.js"
 import {template, html, easypage, headScripts, git_commit_hash, read_file, unsanitized, renderSocialCard, read_json} from "@benev/turtle"
 
-const domain = "bab.benevolent.games"
+const domain = "marduk.benevolent.games"
 const favicon = "/assets/b.svg"
-const description = "toolkit for making babylonjs games"
+const description = "babylonjs rendering toolkit"
 
 export default template(async basic => {
 	const path = basic.path(import.meta.url)
@@ -13,7 +13,7 @@ export default template(async basic => {
 	return easypage({
 		path,
 		dark: true,
-		title: "@benev/bab",
+		title: "@benev/marduk",
 		head: html`
 			<link rel="icon" href="${favicon}"/>
 			<style>${unsanitized(await read_file("x/demo/style.css"))}</style>
@@ -23,7 +23,7 @@ export default template(async basic => {
 			${renderSocialCard({
 				themeColor: "#f2ea8e",
 				siteName: domain,
-				title: "@benev/bab",
+				title: "@benev/marduk",
 				description,
 				image: `https://${domain}${favicon}`,
 				url: `https://${domain}/`,
@@ -37,8 +37,8 @@ export default template(async basic => {
 		`,
 		body: html`
 			<section>
-				<h1>@benev/bab</h1>
-				<p>see it on <a href="https://github.com/benevolent-games/bab">github</a></p>
+				<h1>@benev/marduk</h1>
+				<p>see it on <a href="https://github.com/benevolent-games/marduk">github</a></p>
 			</section>
 		`,
 	})
