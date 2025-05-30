@@ -1,7 +1,7 @@
 
 import {html, shadowComponent} from "@benev/slate"
 import styleCss from "./style.css.js"
-import {Theater} from "../theater.js"
+import {Theater} from "../parts/types.js"
 import {Frontstage} from "../parts/frontstage.js"
 
 export const theaterElement = (theater: Theater) => shadowComponent(use => {

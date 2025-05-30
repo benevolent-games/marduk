@@ -1,7 +1,7 @@
 
 import {register} from "@benev/slate"
 import {DemoFigmentSpec} from "./spec.js"
-import {theaterHost} from "../theater/theater.js"
+import {theaterHost} from "../theater/theater-host.js"
 import {theaterElement} from "../theater/element/element.js"
 
 void async function() {

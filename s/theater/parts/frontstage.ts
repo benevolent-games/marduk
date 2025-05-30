@@ -2,9 +2,8 @@
 import {Trash} from "@e280/stz"
 import {requestAnimationFrameLoop} from "@benev/slate"
 
-import {Frame} from "./types.js"
-import {Theater} from "../theater.js"
-import {CanvasRezzer} from "../../iron/parts/canvas-rezzer.js"
+import {Frame, Theater} from "./types.js"
+import {CanvasRezzer} from "../../babylon/iron/canvas-rezzer.js"
 
 export class Frontstage {
 	#trash = new Trash()

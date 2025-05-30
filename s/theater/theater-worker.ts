@@ -1,8 +1,8 @@
 
 import {Comrade, tune} from "@e280/comrade"
-import {Backstage} from "./backstage.js"
-import {LifecycleFns, Lifecycler} from "../../tools/lifecycler.js"
-import {FigmentId, FigmentSpec, FigmentTupleAny, TheaterSchematic} from "./types.js"
+import {Backstage} from "./parts/backstage.js"
+import {LifecycleFns, Lifecycler} from "../tools/lifecycler.js"
+import {FigmentId, FigmentSpec, FigmentTupleAny, TheaterSchematic} from "./parts/types.js"
 
 export async function theaterWorker<Fs extends FigmentSpec>(
 		establish: (backstage: Backstage) => Promise<LifecycleFns<FigmentId, FigmentTupleAny<Fs>>>,

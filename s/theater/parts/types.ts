@@ -1,6 +1,16 @@
 
+import {Sub} from "@e280/stz"
 import {Vec2Array} from "@benev/math"
-import {AsSchematic} from "@e280/comrade"
+import {AsSchematic, Comrade} from "@e280/comrade"
+
+export type TheaterHostOptions = {
+	workerUrl: URL | string
+}
+
+export type Theater<Fs extends FigmentSpec = any> = {
+	onFrame: Sub<[frame: Frame]>
+	thread: Comrade.Thread<TheaterSchematic<Fs>>
+}
 
 export type TheaterSchematic<Fs extends FigmentSpec> = AsSchematic<{
 

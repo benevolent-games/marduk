@@ -6,10 +6,10 @@ import {Engine} from "@babylonjs/core/Engines/engine.js"
 import {WebGPUEngine} from "@babylonjs/core/Engines/webgpuEngine.js"
 
 import {CanvasDetails} from "./types.js"
-import {make_scene} from "../../iron/parts/scene.js"
-import {Gameloop} from "../../iron/parts/gameloop.js"
-import {make_engine} from "../../iron/parts/engine.js"
-import {Rendering} from "../../iron/parts/rendering/rendering.js"
+import {make_scene} from "../../babylon/iron/scene.js"
+import {Gameloop} from "../../babylon/iron/gameloop.js"
+import {make_engine} from "../../babylon/iron/engine.js"
+import {Rendering} from "../../babylon/iron/rendering/rendering.js"
 
 export class Backstage {
 	static async make() {

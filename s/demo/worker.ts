@@ -1,5 +1,5 @@
 
-import {theaterWorker} from "../theater/parts/worker.js"
+import {theaterWorker} from "../theater/theater-worker.js"
 
 theaterWorker(async backstage => {
 	backstage.scene
