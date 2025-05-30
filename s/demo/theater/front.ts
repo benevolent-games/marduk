@@ -4,8 +4,10 @@ import {theaterHost} from "../../theater/theater-host.js"
 import {Frontstage} from "../../theater/parts/frontstage.js"
 
 export async function demoFrontstage() {
+	const hash = document.head.querySelector("[data-commit-hash]")!.getAttribute("data-commit-hash")
+
 	const theater = await theaterHost<DemoFigmentSpec>({
-		workerUrl: new URL("./worker.bundle.js", import.meta.url)
+		workerUrl: new URL(`./worker.bundle.esbuild.js?v=${hash}`, import.meta.url)
 	})
 
 	// test full lifecycle
