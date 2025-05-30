@@ -29,7 +29,8 @@
 		"_ln-assets": "ln -s \"$(realpath assets)\" x/assets",
 		"test": "node x/tests.test.js",
 		"test-watch": "node --watch x/tests.test.js",
-		"test-debug": "node inspect x/tests.test.js"
+		"test-debug": "node inspect x/tests.test.js",
+		"count": "find s -path '*/_archive' -prune -o -name '*.ts' -exec wc -l {} +"
 	},
 	"targets": {
 		"app": {
