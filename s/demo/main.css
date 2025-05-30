@@ -42,16 +42,14 @@ html, body {
 }
 
 body {
-	display: flex;
-	padding: 10%;
-	flex-direction: column;
-	align-items: center;
-	text-align: center;
+	padding: 5vw;
 
 	> section {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 		max-width: 32em;
-		padding: 2em;
-		text-align: center;
+		margin: 0 auto;
 	}
 }
 
@@ -60,5 +58,9 @@ body {
 	justify-content: center;
 	align-items: baseline;
 	gap: 1em;
+}
+
+marduk-thunder {
+	margin-top: 1em;
 }
 

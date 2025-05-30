@@ -12,6 +12,10 @@ export const thunderElement = (thunder: Thunder) => shadowComponent(use => {
 		return [visualizer, visualizer.dispose]
 	})
 
+	use.deferOnce(() => {
+		visualizer.rezzer.recalibrate()
+	})
+
 	return html`
 		${visualizer.canvas}
 	`

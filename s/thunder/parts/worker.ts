@@ -22,8 +22,8 @@ export async function thunderWorker<Fs extends FigmentSpec>(
 		},
 	}))
 
-	imagination.onFrame(async(frame, bitmap) => {
-		await host.deliverFrame[tune]({transfer: [bitmap]})(frame, bitmap)
+	imagination.onFrame(async(count, bitmap) => {
+		await host.deliverFrame[tune]({transfer: [bitmap]})({count, bitmap})
 	})
 
 	imagination.gameloop.start()

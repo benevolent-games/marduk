@@ -2,6 +2,7 @@
 import {Trash} from "@e280/stz"
 import {requestAnimationFrameLoop} from "@benev/slate"
 
+import {Frame} from "./types.js"
 import {Thunder} from "../thunder.js"
 import {CanvasRezzer} from "../../iron/parts/canvas-rezzer.js"
 
@@ -11,34 +12,42 @@ export class Visualizer {
 	rezzer = new CanvasRezzer(this.canvas, () => 1)
 	ctx: CanvasRenderingContext2D
 
-	frameNext: undefined | {frame: number, bitmap: ImageBitmap}
-	frameDone: undefined | {frame: number, bitmap: ImageBitmap}
+	frame: undefined | Frame
+	previousFrame: undefined | Frame
 
 	constructor(public thunder: Thunder) {
 		this.ctx = this.canvas.getContext("2d")!
-		this.#updateCanvas()
 		this.#trash.add(
 			this.rezzer.onChange(this.#updateCanvas),
-			thunder.onFrame(this.#storeNextFrame),
-			requestAnimationFrameLoop(this.#displayNewFrames),
+			thunder.onFrame(this.#storeFrame),
+			requestAnimationFrameLoop(this.#displayNewFrame),
 		)
 	}
 
 	#updateCanvas = async() => {
+		const {width, height} = this.canvas
 		await this.thunder.thread.work.setCanvasDetails({
-			dimensions: [this.canvas.width, this.canvas.height],
+			dimensions: [width, height],
 		})
 	}
 
-	#storeNextFrame = (frame: number, bitmap: ImageBitmap) => {
-		this.frameNext = {frame, bitmap}
+	#storeFrame = (frame: Frame) => {
+		this.frame = frame
 	}
 
-	#displayNewFrames = () => {
-		const newFrame = this.frameNext !== this.frameDone
-		if (newFrame && this.frameNext) {
-			this.frameDone = this.frameNext
-			this.ctx.drawImage(this.frameNext.bitmap, 0, 0)
+	#displayNewFrame = () => {
+		const frame = (this.frame && this.frame !== this.previousFrame)
+			? this.frame
+			: undefined
+
+		this.previousFrame = frame
+
+		if (frame && this.canvas.isConnected) {
+			this.ctx.drawImage(frame.bitmap, 0, 0)
+			frame.bitmap.close()
+			this.ctx.fillStyle = "#fff8"
+			this.ctx.font = "12px sans-serif"
+			this.ctx.fillText(frame.count.toString(), 4, 16)
 		}
 	}
 

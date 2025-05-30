@@ -1,5 +1,5 @@
 
-import {debounce, nap, sub} from "@e280/stz"
+import {debounce, sub} from "@e280/stz"
 
 /** use a resize observer to maintain the given resolution ratio for the size of the canvas */
 export class CanvasRezzer {
@@ -14,20 +14,21 @@ export class CanvasRezzer {
 			public readonly canvas: HTMLCanvasElement,
 			public fn: (rect: DOMRect) => number,
 		) {
-		canvas.width = 100
-		canvas.height = 100
-		nap().then(() => this.#recalibrate())
-		new ResizeObserver(() => this.#recalibrate())
+		canvas.width = 0
+		canvas.height = 0
+		new ResizeObserver(() => this.#recalibrateDebounced())
 			.observe(canvas as any)
 	}
 
-	#recalibrate = debounce(100, () => {
+	recalibrate = () => {
 		const {canvas} = this
 		const rect = canvas.getBoundingClientRect()
 		const resolution = this.fn(rect)
 		canvas.width = Math.round(rect.width * resolution)
 		canvas.height = Math.round(rect.height * resolution)
 		this.onChange.pub()
-	})
+	}
+
+	#recalibrateDebounced = debounce(100, this.recalibrate)
 }
 

@@ -21,7 +21,7 @@
 		"_code": "turtle build --out=x",
 		"_ssg": "turtle ssg --in=s,x --out=x",
 		"start": "run-p _turtlewatch _http esbuild-watch",
-		"_http": "http-server x",
+		"_http": "http-server x -c-1",
 		"_parcel": "parcel --target app",
 		"_turtlewatch": "turtle watch --in=s,x --out=x -v",
 		"_ln": "run-s _ln-s _ln-assets",

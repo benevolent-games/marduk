@@ -13,7 +13,7 @@ import {Rendering} from "../../iron/parts/rendering/rendering.js"
 
 export class Imagination {
 	static async make() {
-		const canvas = new OffscreenCanvas(200, 100)
+		const canvas = new OffscreenCanvas(0, 0)
 		const engine = await make_engine({
 			canvas,
 			webgl: {
@@ -23,7 +23,7 @@ export class Imagination {
 		})
 		const scene = make_scene({
 			engine,
-			background: new Vec4(0.1, 0.1, 0.1, 1),
+			background: new Vec4(0, 0, 0, 1),
 		})
 		const rendering = Rendering.make(scene)
 		const gameloop = Gameloop.make(engine, [scene])
@@ -31,7 +31,7 @@ export class Imagination {
 	}
 
 	#frame = 0
-	onFrame = sub<[number, ImageBitmap]>()
+	onFrame = sub<[count: number, bitmap: ImageBitmap]>()
 
 	constructor(
 			public canvas: OffscreenCanvas,

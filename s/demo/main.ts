@@ -5,7 +5,7 @@ import {Thunder} from "../thunder/thunder.js"
 import {thunderElement} from "../thunder/elements/marduk-thunder/element.js"
 
 void async function() {
-	const thunder = await Thunder.setupHost<DemoFigmentSpec>({
+	const thunder = await Thunder.host<DemoFigmentSpec>({
 		workerUrl: new URL("./worker.bundle.js", import.meta.url)
 	})
 
