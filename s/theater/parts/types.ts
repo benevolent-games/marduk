@@ -2,7 +2,7 @@
 import {Vec2Array} from "@benev/math"
 import {AsSchematic} from "@e280/comrade"
 
-export type ThunderSchematic<Fs extends FigmentSpec> = AsSchematic<{
+export type TheaterSchematic<Fs extends FigmentSpec> = AsSchematic<{
 
 	// functions on the worker. main thread can call these.
 	work: {

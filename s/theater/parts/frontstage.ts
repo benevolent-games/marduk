@@ -3,10 +3,10 @@ import {Trash} from "@e280/stz"
 import {requestAnimationFrameLoop} from "@benev/slate"
 
 import {Frame} from "./types.js"
-import {Thunder} from "../thunder.js"
+import {Theater} from "../theater.js"
 import {CanvasRezzer} from "../../iron/parts/canvas-rezzer.js"
 
-export class Visualizer {
+export class Frontstage {
 	#trash = new Trash()
 	canvas = document.createElement("canvas")
 	rezzer = new CanvasRezzer(this.canvas, () => 1)
@@ -15,18 +15,18 @@ export class Visualizer {
 	frame: undefined | Frame
 	previousFrame: undefined | Frame
 
-	constructor(public thunder: Thunder) {
+	constructor(public theater: Theater) {
 		this.ctx = this.canvas.getContext("2d")!
 		this.#trash.add(
 			this.rezzer.onChange(this.#updateCanvas),
-			thunder.onFrame(this.#storeFrame),
+			theater.onFrame(this.#storeFrame),
 			requestAnimationFrameLoop(this.#displayNewFrame),
 		)
 	}
 
 	#updateCanvas = async() => {
 		const {width, height} = this.canvas
-		await this.thunder.thread.work.setCanvasDetails({
+		await this.theater.thread.work.setCanvasDetails({
 			dimensions: [width, height],
 		})
 	}

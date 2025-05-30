@@ -1,20 +1,20 @@
 
 import {register} from "@benev/slate"
 import {DemoFigmentSpec} from "./spec.js"
-import {Thunder} from "../thunder/thunder.js"
-import {thunderElement} from "../thunder/elements/marduk-thunder/element.js"
+import {theaterHost} from "../theater/theater.js"
+import {theaterElement} from "../theater/element/element.js"
 
 void async function() {
-	const thunder = await Thunder.host<DemoFigmentSpec>({
+	const theater = await theaterHost<DemoFigmentSpec>({
 		workerUrl: new URL("./worker.bundle.js", import.meta.url)
 	})
 
 	// test full lifecycle
-	await thunder.thread.work.setFigments([[0, ["hippo", {hungry: false}]]])
-	await thunder.thread.work.setFigments([[0, ["hippo", {hungry: true}]]])
-	await thunder.thread.work.setFigments([[0, undefined]])
+	await theater.thread.work.setFigments([[0, ["hippo", {hungry: false}]]])
+	await theater.thread.work.setFigments([[0, ["hippo", {hungry: true}]]])
+	await theater.thread.work.setFigments([[0, undefined]])
 
-	register({MardukThunder: thunderElement(thunder)})
+	register({MardukTheater: theaterElement(theater)})
 
 	console.log("👁️")
 }()

@@ -11,7 +11,7 @@ import {Gameloop} from "../../iron/parts/gameloop.js"
 import {make_engine} from "../../iron/parts/engine.js"
 import {Rendering} from "../../iron/parts/rendering/rendering.js"
 
-export class Imagination {
+export class Backstage {
 	static async make() {
 		const canvas = new OffscreenCanvas(0, 0)
 		const engine = await make_engine({

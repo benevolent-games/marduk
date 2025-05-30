@@ -42,7 +42,7 @@ export default template(async basic => {
 				<p>${version}</p>
 				<p>see it on <a href="https://github.com/benevolent-games/marduk">github</a></p>
 
-				<marduk-thunder></marduk-thunder>
+				<marduk-theater></marduk-theater>
 			</section>
 		`,
 	})
