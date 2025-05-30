@@ -1,6 +1,6 @@
 
 import "@benev/slate/x/node.js"
-import {template, html, easypage, headScripts, git_commit_hash, read_file, unsanitized, renderSocialCard, read_json} from "@benev/turtle"
+import {template, html, easypage, git_commit_hash, read_file, unsanitized, renderSocialCard, read_json} from "@benev/turtle"
 
 const domain = "marduk.benevolent.games"
 const favicon = "/assets/b.svg"
@@ -29,11 +29,7 @@ export default template(async basic => {
 				url: `https://${domain}/`,
 			})}
 
-			${headScripts({
-				devModulePath: await path.version.root("demo/main.bundle.js"),
-				prodModulePath: await path.version.root("demo/main.bundle.min.js"),
-				importmapContent: await read_file("x/importmap.json"),
-			})}
+			<script type=module src="demo/main.bundle.js"></script>
 		`,
 		body: html`
 			<section>

@@ -17,6 +17,7 @@ export class Thunder<Fs extends FigmentSpec = any> {
 			await Comrade.thread<ThunderSchematic<F>>({
 				label: "thunder",
 				workerUrl: options.workerUrl,
+				timeout: 1_000,
 				setupHost: () => ({
 					async deliverFrame(frame, bitmap) {
 						console.log("frame", frame, bitmap.width, bitmap.height)

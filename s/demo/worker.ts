@@ -1,9 +1,11 @@
 
+console.log("worker a")
+
 import {Thunder} from "../thunder/thunder.js"
 
-console.log("worker")
+console.log("worker b")
 
-await Thunder.setupWorker(async imagination => {
+Thunder.setupWorker(async imagination => {
 	return {
 		create(id) { console.log("create", id) },
 		update(id) { console.log("update", id) },
