@@ -1,7 +1,7 @@
 
 import {MapG, sub} from "@e280/stz"
 
-export type LifecycleFns<Id, Thing> = {
+export type Lifecycle<Id, Thing> = {
 	create: (id: Id, thing: Thing) => void
 	update: (id: Id, thing: Thing) => void
 	delete: (id: Id) => void
@@ -13,7 +13,7 @@ export class Lifecycler<Id, Thing> {
 	onUpdate = sub<[Id, Thing]>()
 	onDelete = sub<[Id]>()
 
-	constructor(fns?: LifecycleFns<Id, Thing>) {
+	constructor(fns?: Lifecycle<Id, Thing>) {
 		if (fns) {
 			this.onCreate(fns.create)
 			this.onUpdate(fns.update)

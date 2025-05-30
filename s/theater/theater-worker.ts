@@ -1,16 +1,16 @@
 
 import {Comrade, tune} from "@e280/comrade"
 import {Backstage} from "./parts/backstage.js"
-import {LifecycleFns, Lifecycler} from "../tools/lifecycler.js"
+import {Lifecycler} from "../tools/lifecycler.js"
 import {FigmentId, FigmentSpec, FigmentTupleAny, TheaterSchematic} from "./parts/types.js"
 
 export async function theaterWorker<Fs extends FigmentSpec>(
-		establish: (backstage: Backstage) => Promise<LifecycleFns<FigmentId, FigmentTupleAny<Fs>>>,
+		backstage: Backstage<Fs>
 	) {
 
-	const backstage = await Backstage.make()
-	const fns = await establish(backstage)
-	const lifecycler = new Lifecycler<FigmentId, FigmentTupleAny<Fs>>(fns)
+	const lifecycler = new Lifecycler<FigmentId, FigmentTupleAny<Fs>>(
+		backstage.lifecycle
+	)
 
 	const host = await Comrade.worker<TheaterSchematic<Fs>>(() => ({
 		async setCanvasDetails(details) {
@@ -22,10 +22,8 @@ export async function theaterWorker<Fs extends FigmentSpec>(
 		},
 	}))
 
-	backstage.onFrame(async(count, bitmap) => {
-		await host.deliverFrame[tune]({transfer: [bitmap]})({count, bitmap})
+	backstage.onFrame(async(frame) => {
+		await host.deliverFrame[tune]({transfer: [frame.bitmap]})(frame)
 	})
-
-	backstage.gameloop.start()
 }
 
