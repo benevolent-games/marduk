@@ -27,7 +27,6 @@ export type FigmentLifecycle<Kind, Data> = {
 
 export type CanvasDetails = {
 	dimensions: Vec2Array
-	resolution: number
 }
 
 export type FigmentId = number

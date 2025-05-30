@@ -47,10 +47,10 @@ export class Imagination {
 		})
 	}
 
-	updateCanvas({dimensions, resolution}: CanvasDetails) {
+	updateCanvas({dimensions}: CanvasDetails) {
 		const [width, height] = dimensions
-		this.canvas.width = Math.round(width * resolution)
-		this.canvas.height = Math.round(height * resolution)
+		this.canvas.width = width
+		this.canvas.height = height
 	}
 }
 
