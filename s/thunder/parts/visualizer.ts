@@ -42,7 +42,7 @@ export class Visualizer {
 
 		this.previousFrame = frame
 
-		if (frame && this.canvas.isConnected) {
+		if (frame && this.canvas.isConnected && !isBitmapClosed(frame.bitmap)) {
 			this.ctx.drawImage(frame.bitmap, 0, 0)
 			frame.bitmap.close()
 			this.ctx.fillStyle = "#fff8"
@@ -54,5 +54,9 @@ export class Visualizer {
 	dispose = () => {
 		return this.#trash.dispose()
 	}
+}
+
+function isBitmapClosed(bitmap: ImageBitmap) {
+	return (bitmap.width === 0 || bitmap.height === 0)
 }
 
