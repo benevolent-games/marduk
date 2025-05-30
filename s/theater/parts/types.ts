@@ -1,6 +1,7 @@
 
 import {Sub} from "@e280/stz"
 import {Vec2Array} from "@benev/math"
+import {Spawn} from "../../tools/lifecycler.js"
 import {AsSchematic, Comrade} from "@e280/comrade"
 
 export type TheaterHostOptions = {
@@ -45,10 +46,13 @@ export type CanvasDetails = {
 }
 
 export type FigmentId = number
-export type FigmentEntry<Kind, Data> = [id: FigmentId, tuple: FigmentTuple<Kind, Data>]
+export type FigmentEntry<Kind, Data> = [id: FigmentId, tuple: [Kind, Data]]
 export type FigmentEntries<Fs extends FigmentSpec> = FigmentEntry<keyof Fs, Fs[keyof Fs]>[]
-export type FigmentSync<Fs extends FigmentSpec> = [id: FigmentId, tuple: FigmentTupleAny<Fs> | undefined][]
-export type FigmentTuple<Kind, Data> = [kind: Kind, data: Data]
+export type FigmentSync<Fs extends FigmentSpec> = [id: FigmentId, tuple: FigmentTuple<Fs> | undefined][]
 export type FigmentData<Fs extends FigmentSpec> = Fs[keyof Fs]
-export type FigmentTupleAny<Fs extends FigmentSpec> = FigmentTuple<keyof Fs, Fs[keyof Fs]>
+export type FigmentTuple<Fs extends FigmentSpec, K extends keyof Fs = keyof Fs> = [K, Fs[K]]
+
+export type FigmentSpawners<Fs extends FigmentSpec> = {
+	[Kind in keyof Fs]: Spawn<FigmentId, Fs[Kind]>
+}
 

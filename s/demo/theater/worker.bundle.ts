@@ -6,10 +6,12 @@ import {babylonBackstage} from "../../theater/babylon-backstage.js"
 const backstage = await babylonBackstage<DemoFigmentSpec>(async stagecraft => {
 	stagecraft.gameloop.start()
 	return {
-		lifecycle: {
-			create(id) { console.log("create", id) },
-			update(id) { console.log("update", id) },
-			delete(id) { console.log("delete", id) },
+		hippo: (id, data) => {
+			console.log("spawn", id, data)
+			return {
+				update: data => console.log("update", id, data),
+				dispose: () => console.log("dispose", id, data),
+			}
 		},
 	}
 })

@@ -7,11 +7,11 @@ import {WebGPUEngine} from "@babylonjs/core/Engines/webgpuEngine.js"
 
 import {Backstage} from "./parts/backstage.js"
 import {make_scene} from "../babylon/iron/scene.js"
-import {Lifecycle} from "../tools/lifecycler.js"
 import {Gameloop} from "../babylon/iron/gameloop.js"
 import {make_engine} from "../babylon/iron/engine.js"
+import {consolidateSpawners} from "./parts/spawners.js"
 import {Rendering} from "../babylon/iron/rendering/rendering.js"
-import {CanvasDetails, FigmentId, FigmentSpec, FigmentTupleAny, Frame} from "./parts/types.js"
+import {CanvasDetails, FigmentSpawners, FigmentSpec, Frame} from "./parts/types.js"
 
 export type BabylonStagecraft = {
 	canvas: OffscreenCanvas
@@ -22,11 +22,38 @@ export type BabylonStagecraft = {
 }
 
 export async function babylonBackstage<Fs extends FigmentSpec>(
-		establish: (stagecraft: BabylonStagecraft) => Promise<{
-			lifecycle: Lifecycle<FigmentId, FigmentTupleAny<Fs>>
-		}>,
+		establish: (stagecraft: BabylonStagecraft) => Promise<FigmentSpawners<Fs>>,
 	) {
 
+	let frameCount = 0
+	const onFrame = sub<[Frame]>()
+	const stagecraft = await prepareBabylonStagecraft()
+
+	stagecraft.gameloop.on(() => {
+		const bitmap = stagecraft.canvas.transferToImageBitmap()
+		onFrame.pub({
+			bitmap,
+			count: frameCount++,
+		})
+	})
+
+	function updateCanvas({dimensions}: CanvasDetails) {
+		const [width, height] = dimensions
+		stagecraft.canvas.width = width
+		stagecraft.canvas.height = height
+	}
+
+	const spawners = await establish(stagecraft)
+
+	return {
+		...stagecraft,
+		onFrame,
+		updateCanvas,
+		spawn: consolidateSpawners(spawners),
+	} satisfies Backstage<Fs> & BabylonStagecraft
+}
+
+async function prepareBabylonStagecraft(): Promise<BabylonStagecraft> {
 	const canvas = new OffscreenCanvas(0, 0)
 	const engine = await make_engine({
 		canvas,
@@ -39,40 +66,14 @@ export async function babylonBackstage<Fs extends FigmentSpec>(
 		engine,
 		background: new Vec4(0, 0, 0, 1),
 	})
-
 	const rendering = Rendering.make(scene)
 	const gameloop = Gameloop.make(engine, [scene])
-
-	const stagecraft: BabylonStagecraft = {
+	return {
 		canvas,
 		engine,
 		scene,
 		rendering,
 		gameloop,
 	}
-
-	let frameCount = 0
-	const onFrame = sub<[Frame]>()
-
-	gameloop.on(() => {
-		const bitmap = canvas.transferToImageBitmap()
-		onFrame.pub({
-			bitmap,
-			count: frameCount++,
-		})
-	})
-
-	function updateCanvas({dimensions}: CanvasDetails) {
-		const [width, height] = dimensions
-		canvas.width = width
-		canvas.height = height
-	}
-
-	return {
-		...stagecraft,
-		...await establish(stagecraft),
-		onFrame,
-		updateCanvas,
-	} satisfies Backstage<Fs> & BabylonStagecraft
 }
 

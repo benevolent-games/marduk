@@ -1,42 +1,36 @@
 
-import {MapG, sub} from "@e280/stz"
+import {MapG} from "@e280/stz"
 
-export type Lifecycle<Id, Thing> = {
-	create: (id: Id, thing: Thing) => void
-	update: (id: Id, thing: Thing) => void
-	delete: (id: Id) => void
+export type Life<Thing> = {
+	update: (thing: Thing) => void
+	dispose: () => void
 }
 
-export class Lifecycler<Id, Thing> {
-	map = new MapG<Id, Thing>()
-	onCreate = sub<[Id, Thing]>()
-	onUpdate = sub<[Id, Thing]>()
-	onDelete = sub<[Id]>()
+export type Spawn<Id, Thing> = (id: Id, thing: Thing) => Life<Thing>
 
-	constructor(fns?: Lifecycle<Id, Thing>) {
-		if (fns) {
-			this.onCreate(fns.create)
-			this.onUpdate(fns.update)
-			this.onDelete(fns.delete)
-		}
-	}
+export class Lifecycler<Id, Thing> {
+	#map = new MapG<Id, Life<Thing>>()
+
+	constructor(private spawn: Spawn<Id, Thing>) {}
 
 	sync(id: Id, thing: Thing | undefined) {
+		const exists = this.#map.get(id)
 
-		// delete
+		// unwanted -- dispose the thing
 		if (thing === undefined) {
-			const deleted = this.map.delete(id)
-			if (deleted) this.onDelete.pub(id)
+			this.#map.delete(id)
+			if (exists) exists.dispose()
 		}
+
+		// already exists -- update the thing
+		else if (exists) {
+			exists.update(thing)
+		}
+
+		// doesn't exist -- spawn the thing
 		else {
-			const isUpdate = this.map.has(id)
-			this.map.set(id, thing)
-
-			// update
-			if (isUpdate) this.onUpdate.pub(id, thing)
-
-			// create
-			else this.onCreate.pub(id, thing)
+			const life = this.spawn(id, thing)
+			this.#map.set(id, life)
 		}
 	}
 }

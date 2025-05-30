@@ -2,14 +2,14 @@
 import {Comrade, tune} from "@e280/comrade"
 import {Backstage} from "./parts/backstage.js"
 import {Lifecycler} from "../tools/lifecycler.js"
-import {FigmentId, FigmentSpec, FigmentTupleAny, TheaterSchematic} from "./parts/types.js"
+import {FigmentId, FigmentSpec, FigmentTuple, TheaterSchematic} from "./parts/types.js"
 
 export async function theaterWorker<Fs extends FigmentSpec>(
 		backstage: Backstage<Fs>
 	) {
 
-	const lifecycler = new Lifecycler<FigmentId, FigmentTupleAny<Fs>>(
-		backstage.lifecycle
+	const lifecycler = new Lifecycler<FigmentId, FigmentTuple<Fs>>(
+		backstage.spawn
 	)
 
 	const host = await Comrade.worker<TheaterSchematic<Fs>>(() => ({
