@@ -1,11 +1,7 @@
 
-console.log("worker a")
+import {thunderWorker} from "../thunder/parts/worker.js"
 
-import {Thunder} from "../thunder/thunder.js"
-
-console.log("worker b")
-
-Thunder.setupWorker(async imagination => {
+thunderWorker(async imagination => {
 	return {
 		create(id) { console.log("create", id) },
 		update(id) { console.log("update", id) },

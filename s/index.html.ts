@@ -33,7 +33,11 @@ export default template(async basic => {
 		`,
 		body: html`
 			<section>
-				<h1>@benev/marduk</h1>
+				<header class=title>
+					<small>👁️👁️👁️</small>
+					<h1>@benev/marduk</h1>
+					<small>👁️👁️👁️</small>
+				</header>
 				<p>see it on <a href="https://github.com/benevolent-games/marduk">github</a></p>
 
 				<marduk-thunder></marduk-thunder>

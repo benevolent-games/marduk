@@ -1,6 +1,5 @@
 
 import {Comrade} from "@e280/comrade"
-import {setupThunderWorker} from "./parts/worker.js"
 import {FigmentSpec, ThunderSchematic} from "./parts/types.js"
 
 export type ThunderHostOptions = {
@@ -9,8 +8,6 @@ export type ThunderHostOptions = {
 
 export class Thunder<Fs extends FigmentSpec = any> {
 	constructor(public thread: Comrade.Thread<ThunderSchematic<Fs>>) {}
-
-	static setupWorker = setupThunderWorker
 
 	static async setupHost<F extends FigmentSpec>(options: ThunderHostOptions) {
 		return new this<F>(

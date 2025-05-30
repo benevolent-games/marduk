@@ -4,7 +4,7 @@ import {Imagination} from "./imagination.js"
 import {LifecycleFns, Lifecycler} from "../../tools/lifecycler.js"
 import {FigmentId, FigmentSpec, FigmentTupleAny, ThunderSchematic} from "./types.js"
 
-export async function setupThunderWorker<Fs extends FigmentSpec>(
+export async function thunderWorker<Fs extends FigmentSpec>(
 		establish: (imagination: Imagination) => Promise<LifecycleFns<FigmentId, FigmentTupleAny<Fs>>>,
 	) {
 
@@ -13,10 +13,10 @@ export async function setupThunderWorker<Fs extends FigmentSpec>(
 	const lifecycler = new Lifecycler<FigmentId, FigmentTupleAny<Fs>>(fns)
 
 	const host = await Comrade.worker<ThunderSchematic<Fs>>(() => ({
-		async updateCanvas(details) {
+		async setCanvasDetails(details) {
 			imagination.updateCanvas(details)
 		},
-		async updateFigments(entries) {
+		async setFigments(entries) {
 			for (const [id, tuple] of entries)
 				lifecycler.sync(id, tuple)
 		},

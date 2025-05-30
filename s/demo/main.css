@@ -46,11 +46,19 @@ body {
 	padding: 10%;
 	flex-direction: column;
 	align-items: center;
+	text-align: center;
 
 	> section {
 		max-width: 32em;
 		padding: 2em;
 		text-align: center;
 	}
+}
+
+.title {
+	display: flex;
+	justify-content: center;
+	align-items: baseline;
+	gap: 1em;
 }
 

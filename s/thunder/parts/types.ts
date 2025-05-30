@@ -6,8 +6,8 @@ export type ThunderSchematic<Fs extends FigmentSpec> = AsSchematic<{
 
 	// functions on the worker. main thread can call these.
 	work: {
-		updateFigments(figments: FigmentEntries<Fs>): Promise<void>
-		updateCanvas(state: CanvasDetails): Promise<void>
+		setFigments(figments: FigmentSync<Fs>): Promise<void>
+		setCanvasDetails(details: CanvasDetails): Promise<void>
 	}
 
 	// functions on main thread. workers can call these.
@@ -36,4 +36,6 @@ export type FigmentEntries<Fs extends FigmentSpec> = FigmentEntry<keyof Fs, Fs[k
 export type FigmentTuple<Kind, Data> = [Kind, Data]
 export type FigmentData<Fs extends FigmentSpec> = Fs[keyof Fs]
 export type FigmentTupleAny<Fs extends FigmentSpec> = FigmentTuple<keyof Fs, Fs[keyof Fs]>
+
+export type FigmentSync<Fs extends FigmentSpec> = [FigmentId, FigmentTupleAny<Fs> | undefined][]
 
