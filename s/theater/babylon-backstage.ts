@@ -28,13 +28,15 @@ export async function babylonBackstage<Fs extends FigmentSpec>(
 	let frameCount = 0
 	const onFrame = sub<[Frame]>()
 	const stagecraft = await prepareBabylonStagecraft()
+	const {canvas} = stagecraft
 
-	stagecraft.gameloop.on(() => {
-		const bitmap = stagecraft.canvas.transferToImageBitmap()
-		onFrame.pub({
-			bitmap,
-			count: frameCount++,
-		})
+	stagecraft.gameloop.on(async() => {
+		if (canvas.width > 0 && canvas.height > 0) {
+			onFrame.pub({
+				bitmap: stagecraft.canvas.transferToImageBitmap(),
+				count: frameCount++,
+			})
+		}
 	})
 
 	function updateCanvas({dimensions}: CanvasDetails) {
