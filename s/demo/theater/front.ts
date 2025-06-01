@@ -11,9 +11,9 @@ export async function demoFrontstage() {
 	})
 
 	// test full lifecycle
-	await theater.thread.work.setFigments([[0, ["hippo", {hungry: false}]]])
-	await theater.thread.work.setFigments([[0, ["hippo", {hungry: true}]]])
-	await theater.thread.work.setFigments([[0, undefined]])
+	await theater.backstage.setFigments([[0, ["hippo", {hungry: false}]]])
+	await theater.backstage.setFigments([[0, ["hippo", {hungry: true}]]])
+	await theater.backstage.setFigments([[0, undefined]])
 
 	return new Frontstage(theater)
 }
