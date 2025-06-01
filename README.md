@@ -79,13 +79,13 @@ The theater is split into two main parts. Each will live in its own separate bun
       // okay, now you're ready to manipulate your world
 
       // spawn a hippo
-      await theater.backstage.setFigments([[0, ["hippo", {hungry: false}]]])
+      await frontstage.theater.backstage.setFigments([[0, ["hippo", {hungry: false}]]])
 
       // update the hippo
-      await theater.backstage.setFigments([[0, ["hippo", {hungry: true}]]])
+      await frontstage.theater.backstage.setFigments([[0, ["hippo", {hungry: true}]]])
 
       // delete the hippo
-      await theater.backstage.setFigments([[0, undefined]])
+      await frontstage.theater.backstage.setFigments([[0, undefined]])
     }()
     ```
     - now bundle this module as `frontstage.bundle.js`
