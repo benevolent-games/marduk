@@ -32,17 +32,6 @@
 		"test-debug": "node inspect x/tests.test.js",
 		"count": "find s -path '*/_archive' -prune -o -name '*.ts' -exec wc -l {} +"
 	},
-	"targets": {
-		"app": {
-			"context": "browser",
-			"source": "x/index.html",
-			"publicUrl": "./",
-			"distDir": "x/parcel"
-		}
-	},
-	"browserslist": [
-		"last 1 chrome version"
-	],
 	"dependencies": {
 		"@babylonjs/core": "^8.10.0",
 		"@babylonjs/loaders": "^8.10.0",
