@@ -1,5 +1,6 @@
 
 import {Sub} from "@e280/stz"
+import {Remote} from "@e280/renraku"
 import {Vec2Array} from "@benev/math"
 import {Spawn} from "../../tools/lifecycler.js"
 import {AsSchematic, Comrade} from "@e280/comrade"
@@ -11,6 +12,7 @@ export type TheaterHostOptions = {
 export type Theater<Fs extends FigmentSpec = any> = {
 	onFrame: Sub<[frame: Frame]>
 	thread: Comrade.Thread<TheaterSchematic<Fs>>
+	backstage: Remote<TheaterSchematic<Fs>["work"]>
 }
 
 export type TheaterSchematic<Fs extends FigmentSpec> = AsSchematic<{

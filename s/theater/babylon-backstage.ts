@@ -44,6 +44,7 @@ export async function babylonBackstage<Fs extends FigmentSpec>(
 	}
 
 	const spawners = await establish(stagecraft)
+	stagecraft.gameloop.start()
 
 	return {
 		...stagecraft,
