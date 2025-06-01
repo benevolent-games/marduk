@@ -61,20 +61,10 @@ The theater is split into two main parts. Each will live in its own separate bun
     import {theaterHost, Frontstage, theaterElement, register} from "@benev/marduk/x/theater/index.js"
 
     void async function() {
-
-      // relative url to the backstage web worker bundle
       const workerUrl = new URL("./backstage.bundle.js", import.meta.url)
-
-      // setup the frontstage
-      const frontstage = new Frontstage(
-        await theaterHost<MySpec>({workerUrl})
-      )
-
-      // create the <marduk-theater> web component
-      const MardukTheater = theaterElement(frontstage)
-
-      // register to the dom
-      register({MardukTheater})
+      const theater = await theaterHost<MySpec>({workerUrl})
+      const frontstage = new Frontstage(theater)
+      register(frontstage.getElements())
 
       // okay, now you're ready to manipulate your world
 

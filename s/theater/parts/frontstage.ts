@@ -3,6 +3,7 @@ import {Trash} from "@e280/stz"
 import {requestAnimationFrameLoop} from "@benev/slate"
 
 import {Frame, Theater} from "./types.js"
+import {theaterElement} from "../element/element.js"
 import {CanvasRezzer} from "../../babylon/iron/canvas-rezzer.js"
 
 export class Frontstage {
@@ -21,6 +22,11 @@ export class Frontstage {
 			theater.onFrame(this.#storeFrame),
 			requestAnimationFrameLoop(this.#displayNewFrame),
 		)
+	}
+
+	getElements() {
+		const MardukTheater = theaterElement(this)
+		return {MardukTheater}
 	}
 
 	#updateCanvas = async() => {

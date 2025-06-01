@@ -6,15 +6,15 @@ import {Frontstage} from "../../theater/parts/frontstage.js"
 export async function demoFrontstage() {
 	const hash = document.head.querySelector("[data-commit-hash]")!.getAttribute("data-commit-hash")
 
-	const theater = await theaterHost<DemoFigmentSpec>({
-		workerUrl: new URL(`./worker.bundle.esbuild.js?v=${hash}`, import.meta.url)
-	})
+	const workerUrl = new URL(`./worker.bundle.esbuild.js?v=${hash}`, import.meta.url)
+	const theater = await theaterHost<DemoFigmentSpec>({workerUrl})
+	const frontstage = new Frontstage(theater)
 
 	// test full lifecycle
 	await theater.backstage.setFigments([[0, ["hippo", {hungry: false}]]])
 	await theater.backstage.setFigments([[0, ["hippo", {hungry: true}]]])
 	await theater.backstage.setFigments([[0, undefined]])
 
-	return new Frontstage(theater)
+	return frontstage
 }
 

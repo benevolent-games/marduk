@@ -15,7 +15,7 @@
 	},
 	"scripts": {
 		"build": "run-s _clean _code _ssg _ln esbuild",
-		"esbuild": "esbuild x/demo/theater/worker.bundle.js --bundle --minify --format=esm --target=es2023 --outdir=x/demo/theater --entry-names=[name].esbuild --sourcemap \"--external:node:*\" --external:os --external:fs",
+		"esbuild": "esbuild x/demo/theater/back.bundle.js --bundle --minify --format=esm --target=es2023 --outdir=x/demo/theater --entry-names=[name].esbuild --sourcemap \"--external:node:*\" --external:os --external:fs",
 		"esbuild-watch": "npm run esbuild -- --watch",
 		"_clean": "rm -rf x && s/delete-babylon-indexes",
 		"_code": "turtle build --out=x",
