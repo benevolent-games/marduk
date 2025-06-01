@@ -36,7 +36,7 @@ The theater is split into two main parts. Each will live in its own separate bun
 1. Establish your `backstage.ts` module (this will be a web worker)
     ```ts
     import {MySpec} from "./spec.js"
-    import {theaterWorker, babylonBackstage} from "@benev/marduk"
+    import {theaterWorker, babylonBackstage} from "@benev/marduk/x/theater/index.back.babylon.js"
 
     void async function() {
       await theaterWorker(
@@ -58,7 +58,7 @@ The theater is split into two main parts. Each will live in its own separate bun
 1. Establish your `frontstage.ts` module (this will be your app's main entrypoint)
     ```ts
     import {MySpec} from "./spec.js"
-    import {theaterHost, Frontstage, theaterElement, register} from "@benev/marduk/x/theater/index.js"
+    import {theaterHost, Frontstage, theaterElement, register} from "@benev/marduk/x/theater/index.front.js"
 
     void async function() {
       const workerUrl = new URL("./backstage.bundle.js", import.meta.url)

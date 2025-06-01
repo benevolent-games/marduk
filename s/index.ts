@@ -2,8 +2,7 @@
 export * from "./babylon/index.js"
 export * from "./buckets/index.js"
 export * from "./nametag/index.js"
-export * from "./theater/index.js"
-export * from "./theater/babylon-backstage.js"
+export * from "./theater/parts/types.js"
 
 export * from "./tools/loading/load-image.js"
 export * from "./tools/babyloid.js"
