@@ -1,8 +1,8 @@
 
 import {Comrade, tune} from "@e280/comrade"
-import {Backstage} from "./parts/backstage.js"
-import {Lifecycler} from "../tools/lifecycler.js"
-import {FigmentId, FigmentSpec, FigmentTuple, TheaterSchematic} from "./parts/types.js"
+import {Lifecycler} from "../../tools/lifecycler.js"
+import {Backstage, TheaterSchematic} from "./types.js"
+import {FigmentId, FigmentSpec, FigmentTuple} from "../pure/types.js"
 
 export async function theaterWorker<Fs extends FigmentSpec>(
 		backstage: Backstage<Fs>
@@ -16,7 +16,7 @@ export async function theaterWorker<Fs extends FigmentSpec>(
 		async setCanvasDetails(details) {
 			backstage.updateCanvas(details)
 		},
-		async setFigments(entries) {
+		async syncFigments(entries) {
 			for (const [id, tuple] of entries)
 				lifecycler.sync(id, tuple)
 		},

@@ -1,7 +1,6 @@
 
 import {DemoFigmentSpec} from "./spec.js"
-import {theaterWorker} from "../../theater/theater-worker.js"
-import {babylonBackstage} from "../../theater/babylon-backstage.js"
+import {theaterWorker, babylonBackstage} from "../../theater/index.babylon.js"
 
 theaterWorker(
 	await babylonBackstage<DemoFigmentSpec>(async _stagecraft => ({

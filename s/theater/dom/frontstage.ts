@@ -1,27 +1,54 @@
 
-import {Trash} from "@e280/stz"
+import {Comrade} from "@e280/comrade"
+import {sub, Sub, Trash} from "@e280/stz"
 import {requestAnimationFrameLoop} from "@benev/slate"
 
-import {Frame, Theater} from "./types.js"
-import {theaterElement} from "../element/element.js"
-import {CanvasRezzer} from "../../babylon/iron/canvas-rezzer.js"
+import {FigmentSpec, FigmentSync} from "../pure/types.js"
+import {theaterElement} from "./element/element.js"
+import {Frame, TheaterSchematic} from "../browser/types.js"
+import {CanvasRezzer} from "../../wip/babylon/iron/canvas-rezzer.js"
 
-export class Frontstage {
+export type MakeFrontstageOptions = {
+	workerUrl: URL | string
+}
+
+type Machina<Fs extends FigmentSpec> = {
+	onFrame: Sub<[frame: Frame]>
+	thread: Comrade.Thread<TheaterSchematic<Fs>>
+}
+
+export class Frontstage<Fs extends FigmentSpec> {
 	#trash = new Trash()
 	canvas = document.createElement("canvas")
 	rezzer = new CanvasRezzer(this.canvas, () => 1)
+
 	ctx: CanvasRenderingContext2D
 
 	frame: undefined | Frame
 	previousFrame: undefined | Frame
 
-	constructor(public theater: Theater) {
+	constructor(private machina: Machina<Fs>) {
 		this.ctx = this.canvas.getContext("2d")!
 		this.#trash.add(
 			this.rezzer.onChange(this.#updateCanvas),
-			theater.onFrame(this.#storeFrame),
+			machina.onFrame(this.#storeFrame),
 			requestAnimationFrameLoop(this.#displayNewFrame),
 		)
+	}
+
+	static async make<Fs extends FigmentSpec>(options: MakeFrontstageOptions) {
+		const onFrame = sub<[frame: Frame]>()
+		const thread = await Comrade.thread<TheaterSchematic<Fs>>({
+			label: "theater",
+			workerUrl: options.workerUrl,
+			timeout: 1_000,
+			setupHost: () => ({
+				deliverFrame: async frame => {
+					onFrame.pub(frame)
+				},
+			}),
+		})
+		return new this<Fs>({onFrame, thread})
 	}
 
 	getElements() {
@@ -29,9 +56,13 @@ export class Frontstage {
 		return {MardukTheater}
 	}
 
+	async syncFigments(figments: FigmentSync<Fs>) {
+		return this.machina.thread.work.syncFigments(figments)
+	}
+
 	#updateCanvas = async() => {
 		const {width, height} = this.canvas
-		await this.theater.thread.work.setCanvasDetails({
+		await this.machina.thread.work.setCanvasDetails({
 			dimensions: [width, height],
 		})
 	}

@@ -1,17 +1,18 @@
 
 import {sub} from "@e280/stz"
 import {Vec4} from "@benev/math"
-import {Scene} from "@babylonjs/core/scene.js"
-import {Engine} from "@babylonjs/core/Engines/engine.js"
-import {WebGPUEngine} from "@babylonjs/core/Engines/webgpuEngine.js"
 
-import {Backstage} from "./parts/backstage.js"
-import {make_scene} from "../babylon/iron/scene.js"
-import {Gameloop} from "../babylon/iron/gameloop.js"
-import {make_engine} from "../babylon/iron/engine.js"
-import {consolidateSpawners} from "./parts/spawners.js"
-import {Rendering} from "../babylon/iron/rendering/rendering.js"
-import {CanvasDetails, FigmentSpawners, FigmentSpec, Frame} from "./parts/types.js"
+import type {Scene} from "@babylonjs/core/scene.js"
+import type {Engine} from "@babylonjs/core/Engines/engine.js"
+import type {WebGPUEngine} from "@babylonjs/core/Engines/webgpuEngine.js"
+
+import {consolidateSpawners} from "../browser/spawners.js"
+import {make_scene} from "../../wip/babylon/iron/scene.js"
+import {Gameloop} from "../../wip/babylon/iron/gameloop.js"
+import {make_engine} from "../../wip/babylon/iron/engine.js"
+import {FigmentSpawners, FigmentSpec} from "../pure/types.js"
+import {Backstage, CanvasDetails, Frame} from "../browser/types.js"
+import {Rendering} from "../../wip/babylon/iron/rendering/rendering.js"
 
 export type BabylonStagecraft = {
 	canvas: OffscreenCanvas
@@ -23,7 +24,7 @@ export type BabylonStagecraft = {
 
 export async function babylonBackstage<Fs extends FigmentSpec>(
 		establish: (stagecraft: BabylonStagecraft) => Promise<FigmentSpawners<Fs>>,
-	) {
+	): Promise<Backstage<Fs> & BabylonStagecraft> {
 
 	let frameCount = 0
 	const onFrame = sub<[Frame]>()
@@ -53,7 +54,7 @@ export async function babylonBackstage<Fs extends FigmentSpec>(
 		onFrame,
 		updateCanvas,
 		spawn: consolidateSpawners(spawners),
-	} satisfies Backstage<Fs> & BabylonStagecraft
+	}
 }
 
 async function prepareBabylonStagecraft(): Promise<BabylonStagecraft> {

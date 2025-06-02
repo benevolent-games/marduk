@@ -21,65 +21,67 @@ The theater coordinates your rendering thread and displays the results onto a ca
 
 The theater is split into two main parts. Each will live in its own separate bundle.
 - *The Frontstage* hosts the visible canvas in the dom. It doesn't import Babylon, and will be lean in filesize.
-- *The Backstage* run inside a web worker, and performs rendering work. It imports Babylon, and will be fat in filesize.
+- *The Backstage* runs inside a web worker, and performs rendering work. It imports Babylon, and will be fat in filesize.
 
 ### Theater project setup
 1. Write your `spec.ts` type, which describes your renderable world
     ```ts
+    import {AsFigmentSpec} from "@benev/marduk/x/theater/index.pure.js"
+
     export type MySpec = AsFigmentSpec<{
 
-      // Describe all the renderable objects in your world,
+      // Describe a renderable object in your world,
       // in terms of serializable data.
       hippo: {hungry: boolean}
     }>
     ```
+    - notice the specific locations from where we're importing things
 1. Establish your `backstage.ts` module (this will be a web worker)
     ```ts
     import {MySpec} from "./spec.js"
-    import {theaterWorker, babylonBackstage} from "@benev/marduk/x/theater/index.back.babylon.js"
+    import {babylonBackstage, theaterWorker} from "@benev/marduk/x/theater/index.babylon.js"
 
     void async function() {
-      await theaterWorker(
-        await babylonBackstage<MySpec>(async stagecraft => ({
 
-          // now we define a renderer for this object
-          hippo: (id, data) => {
-            console.log("spawn", id, data)
-            return {
-              update: data => console.log("update", id, data),
-              dispose: () => console.log("dispose", id, data),
-            }
-          },
-        }))
-      )
+      // defining a babylon backstage
+      // (you could make a backstage for a different kind of renderer)
+      const backstage = await babylonBackstage<MySpec>(async stagecraft => ({
+
+        // now we define a renderer for this object
+        hippo: (id, data) => {
+          console.log("spawn", id, data)
+          return {
+            update: data => console.log("update", id, data),
+            dispose: () => console.log("dispose", id, data),
+          }
+        },
+      }))
+
+      // establishing the web worker
+      await theaterWorker(backstage)
     }()
     ```
     - now bundle this module as `backstage.bundle.js` using `rollup`, `esbuild`, `parcel`, `vite`, or whatever
-1. Establish your `frontstage.ts` module (this will be your app's main entrypoint)
+1. Create your `frontstage.ts` module (this will be your app's main entrypoint)
     ```ts
     import {MySpec} from "./spec.js"
-    import {theaterHost, Frontstage, theaterElement, register} from "@benev/marduk/x/theater/index.front.js"
+    import {Frontstage, register} from "@benev/marduk/x/theater/index.dom.js"
 
     void async function() {
       const workerUrl = new URL("./backstage.bundle.js", import.meta.url)
-      const theater = await theaterHost<MySpec>({workerUrl})
-      const frontstage = new Frontstage(theater)
+      const frontstage = await Frontstage.make<MySpec>({workerUrl})
       register(frontstage.getElements())
 
       // okay, now you're ready to manipulate your world
 
-      // spawn a hippo
-      await frontstage.theater.backstage.setFigments([[0, ["hippo", {hungry: false}]]])
-
-      // update the hippo
-      await frontstage.theater.backstage.setFigments([[0, ["hippo", {hungry: true}]]])
-
-      // delete the hippo
-      await frontstage.theater.backstage.setFigments([[0, undefined]])
+      // spawn, then update, then delete a hippo (lol, just to exercise the full lifecycle)
+      await frontstage.syncFigments([[0, ["hippo", {hungry: false}]]])
+      await frontstage.syncFigments([[0, ["hippo", {hungry: true}]]])
+      await frontstage.syncFigments([[0, undefined]])
     }()
     ```
     - now bundle this module as `frontstage.bundle.js`
-1. Load the frontstage onto your web page
+1. Load the frontstage bundle onto your web page
     ```html
     <script type=module src="./frontstage.bundle.js"></script>
     ```
@@ -87,4 +89,6 @@ The theater is split into two main parts. Each will live in its own separate bun
     ```html
     <marduk-theater></marduk-theater>
     ```
+1. 🎉 You're done!
+    - If you run the page, you should see the console logging about the hippo lifecycle events.
 
