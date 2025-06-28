@@ -3,8 +3,8 @@ import {Comrade} from "@e280/comrade"
 import {sub, Sub, Trash} from "@e280/stz"
 import {requestAnimationFrameLoop} from "@benev/slate"
 
-import {FigmentSpec, FigmentSync} from "../pure/types.js"
 import {theaterElement} from "./element/element.js"
+import {FigmentSpec, FigmentSync} from "../pure/types.js"
 import {Frame, TheaterSchematic} from "../browser/types.js"
 import {CanvasRezzer} from "../../wip/babylon/iron/canvas-rezzer.js"
 
