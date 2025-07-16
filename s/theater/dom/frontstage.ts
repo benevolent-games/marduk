@@ -1,6 +1,6 @@
 
-import {Comrade} from "@e280/comrade"
 import {sub, Sub, Trash} from "@e280/stz"
+import {Comrade, Thread} from "@e280/comrade"
 import {requestAnimationFrameLoop} from "@benev/slate"
 
 import {theaterElement} from "./element/element.js"
@@ -14,7 +14,7 @@ export type MakeFrontstageOptions = {
 
 type Machina<Fs extends FigmentSpec> = {
 	onFrame: Sub<[frame: Frame]>
-	thread: Comrade.Thread<TheaterSchematic<Fs>>
+	thread: Thread<TheaterSchematic<Fs>>
 }
 
 export class Frontstage<Fs extends FigmentSpec> {

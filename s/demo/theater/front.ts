@@ -2,10 +2,12 @@
 import {DemoFigmentSpec} from "./spec.js"
 import {Frontstage} from "../../theater/index.dom.js"
 
-export async function demoFrontstage() {
-	const hash = document.head.querySelector("[data-commit-hash]")!.getAttribute("data-commit-hash")
+const url = "/demo/theater/back.worker.bundle.min.js"
 
-	const workerUrl = new URL(`./back.worker.bundle.js?v=${hash}`, import.meta.url)
+export async function demoFrontstage() {
+	const version = document.head.querySelector("[data-version]")!.getAttribute("data-version")
+	const workerUrl = new URL(`${url}?v=${version}`, import.meta.url)
+	console.log(workerUrl.href)
 	const frontstage = await Frontstage.make<DemoFigmentSpec>({workerUrl})
 
 	// test full lifecycle

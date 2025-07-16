@@ -1,54 +1,44 @@
 
-import "@benev/slate/x/node.js"
-import {template, html, easypage, git_commit_hash, read_file, unsanitized, renderSocialCard, read_json, headScripts} from "@benev/turtle"
+import {ssg, html} from "@e280/scute"
 
-const version = (await read_json("package.json")).version
+const title = "@benev/marduk"
 const domain = "marduk.benevolent.games"
 const favicon = "/assets/b.svg"
 const description = "babylonjs rendering toolkit"
 
-export default template(async basic => {
-	const path = basic.path(import.meta.url)
-	const hash = await git_commit_hash()
+export default ssg.page(import.meta.url, async orb => ({
+	title,
+	js: "demo/main.bundle.min.js",
+	css: "demo/main.css",
+	dark: true,
+	favicon,
+	head: html`
+		<meta data-version="${orb.packageVersion()}" />
+	`,
 
-	return easypage({
-		path,
-		dark: true,
-		title: "@benev/marduk",
-		head: html`
-			<link rel="icon" href="${favicon}"/>
-			<style>${unsanitized(await read_file("x/demo/main.css"))}</style>
-			<meta data-commit-hash="${hash}"/>
-			<meta data-version="${version}"/>
+	// opengraph social card (optional)
+	socialCard: {
+		title,
+		description,
+		themeColor: "#f2ea8e",
+		siteName: domain,
+		image: `https://${domain}${favicon}`,
+		url: `https://${domain}/`,
+	},
 
-			${renderSocialCard({
-				themeColor: "#f2ea8e",
-				siteName: domain,
-				title: "@benev/marduk",
-				description,
-				image: `https://${domain}${favicon}`,
-				url: `https://${domain}/`,
-			})}
+	// content for your <body>
+	body: html`
+		<section>
+			<header class=title>
+				<small>👁️👁️👁️</small>
+				<h1>@benev/marduk</h1>
+				<small>👁️👁️👁️</small>
+			</header>
+			<p>${orb.packageVersion()}</p>
+			<p>see it on <a href="https://github.com/benevolent-games/marduk">github</a></p>
 
-			${headScripts({
-				devModulePath: await path.version.root("demo/main.bundle.js"),
-				prodModulePath: await path.version.root("demo/main.bundle.min.js"),
-				importmapContent: await read_file("x/importmap.json"),
-			})}
-		`,
-		body: html`
-			<section>
-				<header class=title>
-					<small>👁️👁️👁️</small>
-					<h1>@benev/marduk</h1>
-					<small>👁️👁️👁️</small>
-				</header>
-				<p>${version}</p>
-				<p>see it on <a href="https://github.com/benevolent-games/marduk">github</a></p>
-
-				<marduk-theater></marduk-theater>
-			</section>
-		`,
-	})
-})
+			<marduk-theater></marduk-theater>
+		</section>
+	`,
+}))
 
