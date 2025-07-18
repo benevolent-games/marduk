@@ -26,7 +26,7 @@ The theater is split into two main parts. Each will live in its own separate bun
 ### Theater project setup
 1. Write your `spec.ts` type, which describes your renderable world
     ```ts
-    import {AsFigmentSpec} from "@benev/marduk/x/theater/index.pure.js"
+    import {AsFigmentSpec} from "@benev/marduk/theater"
 
     export type MySpec = AsFigmentSpec<{
 
@@ -36,10 +36,10 @@ The theater is split into two main parts. Each will live in its own separate bun
     }>
     ```
     - notice the specific locations from where we're importing things
-1. Establish your `backstage.ts` module (this will be a web worker)
+1. Establish your `backstage.worker.bundle.ts` module (this will be a web worker)
     ```ts
     import {MySpec} from "./spec.js"
-    import {babylonBackstage, theaterWorker} from "@benev/marduk/x/theater/index.babylon.js"
+    import {babylonBackstage, theaterWorker} from "@benev/marduk/theater/babylon"
 
     void async function() {
 
@@ -61,11 +61,11 @@ The theater is split into two main parts. Each will live in its own separate bun
       await theaterWorker(backstage)
     }()
     ```
-    - now bundle this module as `backstage.bundle.js` using [`scute`](https://github.com/e280/scute), `rollup`, `esbuild`, `parcel`, `vite`, or whatever
+    - now bundle this module as `backstage.worker.bundle.min.js` using [`scute`](https://github.com/e280/scute), `rollup`, `esbuild`, `parcel`, `vite`, or whatever
 1. Create your `frontstage.ts` module (this will be your app's main entrypoint)
     ```ts
     import {MySpec} from "./spec.js"
-    import {Frontstage, register} from "@benev/marduk/x/theater/index.dom.js"
+    import {Frontstage, register} from "@benev/marduk/theater/front"
 
     void async function() {
       const workerUrl = new URL("./backstage.bundle.js", import.meta.url)

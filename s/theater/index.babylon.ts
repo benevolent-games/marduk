@@ -1,6 +1,5 @@
 
 export * from "./index.browser.js"
 
-export {babylonBackstage} from "./babylon/babylon-backstage.js"
-export {theaterWorker} from "./browser/theater-worker.js"
+export * from "./babylon/babylon-backstage.js"
 
