@@ -61,7 +61,7 @@ The theater is split into two main parts. Each will live in its own separate bun
       await theaterWorker(backstage)
     }()
     ```
-    - now bundle this module as `backstage.bundle.js` using `rollup`, `esbuild`, `parcel`, `vite`, or whatever
+    - now bundle this module as `backstage.bundle.js` using [`scute`](https://github.com/e280/scute), `rollup`, `esbuild`, `parcel`, `vite`, or whatever
 1. Create your `frontstage.ts` module (this will be your app's main entrypoint)
     ```ts
     import {MySpec} from "./spec.js"
