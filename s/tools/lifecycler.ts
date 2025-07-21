@@ -30,6 +30,7 @@ export class Lifecycler<Id, Thing> {
 		// doesn't exist -- spawn the thing
 		else {
 			const life = this.spawn(id, thing)
+			life.update(thing) // update after spawn
 			this.#map.set(id, life)
 		}
 	}
