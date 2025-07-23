@@ -19,12 +19,14 @@ void async function worker() {
 				canvas.width = x
 				canvas.height = y
 			},
+			tick() {},
 			dispose() {},
 		}),
 		timestamp: () => ({
 			update(time) {
 				timestamp = time
 			},
+			tick() {},
 			dispose() {},
 		}),
 	})
