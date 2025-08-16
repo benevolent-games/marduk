@@ -16,29 +16,24 @@ export default ssg.page(import.meta.url, async orb => ({
 		<meta data-version="${orb.packageVersion()}" />
 	`,
 
-	// opengraph social card (optional)
 	socialCard: {
 		title,
 		description,
 		themeColor: "#f2ea8e",
 		siteName: domain,
 		image: `https://${domain}${favicon}`,
-		url: `https://${domain}/`,
 	},
 
-	// content for your <body>
 	body: html`
-		<section>
-			<header class=title>
-				<small>👁️👁️👁️</small>
-				<h1>@benev/marduk</h1>
-				<small>👁️👁️👁️</small>
-			</header>
-			<p>${orb.packageVersion()}</p>
-			<p>see it on <a href="https://github.com/benevolent-games/marduk">github</a></p>
-
-			<marduk-theater></marduk-theater>
-		</section>
+		<header>
+			<h1>@benev/marduk</h1>
+			<div class=deets>
+				<a href="https://github.com/benevolent-games/marduk">github</a>
+				<a href="https://benevolent.games/">benevolent.games</a>
+				<span>v${orb.packageVersion()}</span>
+			</div>
+		</header>
+		<div class=app></div>
 	`,
 }))
 
