@@ -1,18 +1,20 @@
 
 import {css, html} from "lit"
 import {cssReset, view} from "@e280/sly"
+import {Demo} from "../../harness/view.js"
 
-export const NothingDemo = view(use => () => {
-	use.styles(cssReset, stylesCss)
+export const nothingDemo: Demo = ["nothing", async() => {
+	return view(use => () => {
+		use.styles(cssReset, stylesCss)
 
-	return html`
-		<h2>marduk demos</h2>
-		<p>click a button below to load a demo</p>
-	`
-})
+		return html`
+			<h2>marduk demos</h2>
+			<p>click a button below to load a demo</p>
+		`
+	})
+}]
 
 const stylesCss = css`
-
 :host {
 	display: flex;
 	flex-direction: column;
@@ -27,6 +29,5 @@ const stylesCss = css`
 h2 {
 	font-size: 2em;
 }
-
 `
 

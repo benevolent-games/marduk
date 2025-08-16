@@ -1,12 +1,12 @@
 
 import {$} from "@e280/sly"
-import {CubeDemo} from "./demos/cube/view.js"
+import {cubeDemo} from "./demos/cube/demo.js"
 import {DemoHarness} from "./harness/view.js"
-import {NothingDemo} from "./demos/nothing/view.js"
+import {nothingDemo} from "./demos/nothing/demo.js"
 
 $.render($(".app"), DemoHarness(
-	["nothing", NothingDemo],
-	["cube", CubeDemo],
+	nothingDemo,
+	cubeDemo,
 ))
 
 console.log("👁️ marduk")

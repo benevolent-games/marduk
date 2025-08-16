@@ -1,24 +1,32 @@
 
 import {css, html} from "lit"
-import {cssReset, View, view} from "@e280/sly"
+import {cssReset, loady, Op, View, view} from "@e280/sly"
 
-export type Demo = [name: string, view: View<[]>]
+export type Demo = [name: string, loadDemoView: () => Promise<View<[]>>]
 
 export const DemoHarness = view(use => (...demos: Demo[]) => {
 	use.styles(cssReset, stylesCss)
-
 	const index = use.signal(0)
-	const click = (newIndex: number) => () => index(newIndex)
 
-	const [,DemoView] = demos.at(index())!
+	const [,loadDemo] = demos.at(index())!
+	const op = use.signal(Op.loading<View<[]>>())
+	use.once(() => op().fn(loadDemo))
+
+	const click = (newIndex: number) => async() => {
+		index(newIndex)
+		const [,loadDemo] = demos.at(newIndex)!
+		op(Op.fn(loadDemo))
+	}
 
 	return html`
-		${DemoView()}
+		${loady.dots(op(), DemoView => DemoView())}
 
 		<nav>
 			${demos.map(([name], i) => html`
-				<button @click="${click(i)}" ?disabled="${index() === i}">
-					${name}
+				<button
+					@click="${click(i)}"
+					?disabled="${op().isLoading || index() === i}">
+						${name}
 				</button>
 			`)}
 		</nav>
