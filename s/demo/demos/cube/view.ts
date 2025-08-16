@@ -1,5 +1,5 @@
 
-import {css, html} from "lit"
+import {css} from "lit"
 import {cssReset, view} from "@e280/sly"
 import {CanvasRezzer} from "../../../wip/babylon/iron/canvas-rezzer.js"
 

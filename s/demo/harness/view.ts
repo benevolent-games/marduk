@@ -41,7 +41,6 @@ nav, sly-view {
 		inset 0.2em 0.3em 1em #0008,
 		inset 0.2em 0.3em 5em #0004;
 	border-radius: 1em;
-	overflow: hidden;
 }
 
 sly-view {
@@ -53,7 +52,10 @@ nav {
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
+
 	padding: 0.5em;
+	gap: 0.5em;
+
 	> button {
 		padding: 0.5em;
 	}
