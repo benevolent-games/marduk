@@ -1,23 +1,21 @@
 
 import {debounce, sub} from "@e280/stz"
 
+const defaultFn = () => 1
+
 /** use a resize observer to maintain the given resolution ratio for the size of the canvas */
 export class CanvasRezzer {
-	static make = (
-		(canvas: HTMLCanvasElement, fn: (rect: DOMRect) => number) =>
-			new this(canvas, fn)
-	)
-
-	onChange = sub()
+	on = sub<[resolution: number]>()
+	#observer: ResizeObserver
 
 	constructor(
 			public readonly canvas: HTMLCanvasElement,
-			public fn: (rect: DOMRect) => number,
+			public fn: (rect: DOMRect) => number = defaultFn,
 		) {
 		canvas.width = 0
 		canvas.height = 0
-		new ResizeObserver(() => this.#recalibrateDebounced())
-			.observe(canvas as any)
+		this.#observer = new ResizeObserver(() => this.reconsider())
+		this.#observer.observe(canvas)
 	}
 
 	recalibrate = () => {
@@ -26,9 +24,13 @@ export class CanvasRezzer {
 		const resolution = this.fn(rect)
 		canvas.width = Math.round(rect.width * resolution)
 		canvas.height = Math.round(rect.height * resolution)
-		this.onChange.pub()
+		this.on.pub(resolution)
 	}
 
-	#recalibrateDebounced = debounce(100, this.recalibrate)
+	reconsider = debounce(100, this.recalibrate)
+
+	dispose() {
+		this.#observer.disconnect()
+	}
 }
 

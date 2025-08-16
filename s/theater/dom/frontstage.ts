@@ -30,7 +30,7 @@ export class Frontstage<Fs extends FigmentSpec> {
 	constructor(private machina: Machina<Fs>) {
 		this.ctx = this.canvas.getContext("2d")!
 		this.#trash.add(
-			this.rezzer.onChange(this.#updateCanvas),
+			this.rezzer.on(this.#updateCanvas),
 			machina.onFrame(this.#storeFrame),
 			requestAnimationFrameLoop(this.#displayNewFrame),
 		)
