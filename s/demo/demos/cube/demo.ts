@@ -1,5 +1,6 @@
 
-import {css, render, shadowView} from "@benev/slate"
+import {view} from "@e280/sly"
+import {css, render} from "lit"
 import {Demo} from "../types.js"
 import commonCss from "../common.css.js"
 import {CanvasRezzer} from "../../../wip/babylon/iron/canvas-rezzer.js"
@@ -18,7 +19,7 @@ export default <Demo>(async options => {
 		}
 	`
 
-	const DemoView = shadowView(use => () => {
+	const DemoView = view(use => () => {
 		use.styles(commonCss, styleCss)
 		return canvas
 	})

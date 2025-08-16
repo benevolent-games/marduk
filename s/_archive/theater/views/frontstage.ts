@@ -3,10 +3,10 @@ import {sub, Sub, Trash} from "@e280/stz"
 import {Comrade, Thread} from "@e280/comrade"
 import {requestAnimationFrameLoop} from "@benev/slate"
 
-import {theaterElement} from "./element/element.js"
+import {theaterElement} from "./theater/element.js"
 import {FigmentSpec, FigmentSync} from "../pure/types.js"
 import {Frame, TheaterSchematic} from "../browser/types.js"
-import {CanvasRezzer} from "../../wip/babylon/iron/canvas-rezzer.js"
+import {CanvasRezzer} from "../../../wip/babylon/iron/canvas-rezzer.js"
 
 export type MakeFrontstageOptions = {
 	workerUrl: URL | string

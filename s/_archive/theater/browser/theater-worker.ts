@@ -1,6 +1,6 @@
 
 import {Comrade, tune} from "@e280/comrade"
-import {Lifecycler} from "../../tools/lifecycler.js"
+import {Lifecycler} from "../../../tools/lifecycler.js"
 import {Backstage, TheaterSchematic} from "./types.js"
 import {FigmentId, FigmentSpec, FigmentTuple} from "../pure/types.js"
 

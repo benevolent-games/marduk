@@ -1,5 +1,5 @@
 
-import {MapG} from "@benev/slate"
+import {MapG} from "@e280/stz"
 
 import {Mesh} from "@babylonjs/core/Meshes/mesh.js"
 import {AssetContainer} from "@babylonjs/core/assetContainer.js"

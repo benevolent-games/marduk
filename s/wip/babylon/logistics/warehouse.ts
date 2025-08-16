@@ -1,5 +1,5 @@
 
-import {MapG} from "@benev/slate"
+import {MapG} from "@e280/stz"
 import {Scene} from "@babylonjs/core/scene.js"
 import {AssetContainer} from "@babylonjs/core/assetContainer.js"
 

@@ -1,5 +1,5 @@
 
-import {Spawn} from "../../tools/lifecycler.js"
+import {Spawn} from "../../../tools/lifecycler.js"
 
 export type FigmentSpec = {[kind: string]: any}
 export type AsFigmentSpec<Fs extends FigmentSpec> = Fs

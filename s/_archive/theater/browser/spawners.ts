@@ -1,5 +1,5 @@
 
-import {Spawn} from "../../tools/lifecycler.js"
+import {Spawn} from "../../../tools/lifecycler.js"
 import {FigmentId, FigmentSpawners, FigmentSpec, FigmentTuple} from "../pure/types.js"
 
 export function consolidateSpawners<Fs extends FigmentSpec>(

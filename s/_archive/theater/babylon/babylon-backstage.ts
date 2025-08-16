@@ -7,12 +7,12 @@ import type {Engine} from "@babylonjs/core/Engines/engine.js"
 import type {WebGPUEngine} from "@babylonjs/core/Engines/webgpuEngine.js"
 
 import {consolidateSpawners} from "../browser/spawners.js"
-import {make_scene} from "../../wip/babylon/iron/scene.js"
-import {Gameloop} from "../../wip/babylon/iron/gameloop.js"
-import {make_engine} from "../../wip/babylon/iron/engine.js"
+import {make_scene} from "../../../wip/babylon/iron/scene.js"
+import {Gameloop} from "../../../wip/babylon/iron/gameloop.js"
+import {make_engine} from "../../../wip/babylon/iron/engine.js"
 import {FigmentSpawners, FigmentSpec} from "../pure/types.js"
 import {Backstage, CanvasDetails, Frame} from "../browser/types.js"
-import {Rendering} from "../../wip/babylon/iron/rendering/rendering.js"
+import {Rendering} from "../../../wip/babylon/iron/rendering/rendering.js"
 
 export type BabylonStagecraft = {
 	canvas: OffscreenCanvas

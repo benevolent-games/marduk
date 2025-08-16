@@ -1,6 +1,6 @@
 
 import {loop} from "@e280/stz"
-import {MapG, Trashbin} from "@benev/slate"
+import {MapG, Trash} from "@e280/stz"
 
 export type PoolNoodle = {
 	enable: () => void
@@ -41,10 +41,10 @@ export class Pool<P> {
 		return payload
 	}
 
-	borrow(trashbin: Trashbin) {
+	borrow(trash: Trash) {
 		const payload = this.acquire()
 		const releaser = () => this.release(payload)
-		trashbin.disposer(releaser)
+		trash.add(releaser)
 		return payload
 	}
 

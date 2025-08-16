@@ -1,5 +1,5 @@
 
-import {MapG} from "@benev/slate"
+import {MapG} from "@e280/stz"
 import {PropPool} from "./prop-pool.js"
 import {Cargo} from "../logistics/cargo.js"
 import {Prop} from "../../tools/babyloid.js"

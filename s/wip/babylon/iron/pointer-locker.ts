@@ -1,5 +1,5 @@
 
-import {ev} from "@benev/slate"
+import {ev} from "@e280/stz"
 
 export class PointerLocker {
 	static make = (element: HTMLElement) => new this(element)

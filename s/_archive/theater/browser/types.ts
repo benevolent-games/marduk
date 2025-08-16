@@ -3,7 +3,7 @@ import {Sub} from "@e280/stz"
 import {Vec2Array} from "@benev/math"
 import {AsSchematic} from "@e280/comrade"
 
-import {Spawn} from "../../tools/lifecycler.js"
+import {Spawn} from "../../../tools/lifecycler.js"
 import {FigmentId, FigmentSpec, FigmentSync, FigmentTuple} from "../pure/types.js"
 
 export type CanvasDetails = {
