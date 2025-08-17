@@ -1,31 +1,40 @@
 
 import {css, html} from "lit"
-import {cssReset, loady, Op, View, view} from "@e280/sly"
+import {cssReset, View, view, makeLoader, anims} from "@e280/sly"
 
 export type Demo = [name: string, loadDemoView: () => Promise<View<[]>>]
 
+const loader = makeLoader(anims.earth)
+
 export const DemoHarness = view(use => (...demos: Demo[]) => {
+	use.name("harness")
 	use.styles(cssReset, stylesCss)
+
 	const index = use.signal(0)
 
-	const [,loadDemo] = demos.at(index())!
-	const op = use.signal(Op.loading<View<[]>>())
-	use.once(() => op().fn(loadDemo))
+	async function loadDemo() {
+		const [,load] = demos.at(index())!
+		return load()
+	}
+
+	const demoOp = use.op.fn(loadDemo)
 
 	const click = (newIndex: number) => async() => {
+		if (demoOp.isLoading) return null
 		index(newIndex)
-		const [,loadDemo] = demos.at(newIndex)!
-		op(Op.fn(loadDemo))
+		demoOp.fn(loadDemo)
 	}
 
 	return html`
-		${loady.dots(op(), DemoView => DemoView())}
+		<div class=pit>
+			${loader(demoOp, DemoView => DemoView.attr("class", "demo")())}
+		</div>
 
 		<nav>
 			${demos.map(([name], i) => html`
 				<button
 					@click="${click(i)}"
-					?disabled="${op().isLoading || index() === i}">
+					?disabled="${demoOp.isLoading || index() === i}">
 						${name}
 				</button>
 			`)}
@@ -40,7 +49,7 @@ const stylesCss = css`
 	gap: 0.5em;
 }
 
-nav, sly-view {
+nav, .pit {
 	background: var(--bg2);
 	border: solid 1px #fff1;
 	border-top: solid 1px #fff0;
@@ -51,8 +60,27 @@ nav, sly-view {
 	border-radius: 1em;
 }
 
-sly-view {
+.pit {
 	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	.demo {
+		width: 100%;
+		height: 100%;
+	}
+
+	[view="loading"] {
+		color: green;
+		font-size: 2em;
+	}
+
+	[view="error"] {
+		color: orange;
+		font-size: 2em;
+	}
 }
 
 nav {

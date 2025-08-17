@@ -7,7 +7,7 @@ import {Demo} from "../../harness/view.js"
 import {CanvasRezzer} from "../../../wip/babylon/iron/canvas-rezzer.js"
 
 export const cubeDemo: Demo = ["cube", async() => {
-	await nap(1000)
+	await nap(2000)
 
 	return view(use => () => {
 		use.styles(cssReset, stylesCss)
