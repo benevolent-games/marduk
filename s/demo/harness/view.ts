@@ -49,7 +49,7 @@ const stylesCss = css`
 	gap: 0.5em;
 }
 
-nav, .pit {
+.pit {
 	background: var(--bg2);
 	border: solid 1px #fff1;
 	border-top: solid 1px #fff0;
