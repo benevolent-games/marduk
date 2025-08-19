@@ -33,7 +33,6 @@ jobs:
 
     - name: 🗑️ delete dev symlinks
       run: |
-        rm x/node_modules
         rm x/s
         rm x/assets
 
