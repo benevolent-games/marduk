@@ -2,7 +2,8 @@
 import {css, html} from "lit"
 import {cssReset, View, view, makeLoader, anims} from "@e280/sly"
 
-export type Demo = [name: string, load: () => Promise<{demoView: View<[]>, dispose: () => void}>]
+export type Demo = [name: string, load: DemoFn]
+export type DemoFn = () => Promise<{demoView: View<[]>, dispose: () => void}>
 
 const loader = makeLoader(anims.earth)
 
@@ -17,7 +18,7 @@ export const DemoHarness = view(use => (...demos: Demo[]) => {
 		return load()
 	}
 
-	const demoOp = use.op.fn(loadDemo)
+	const demoOp = use.op(loadDemo)
 
 	const click = (newIndex: number) => async() => {
 		if (demoOp.isLoading) return null

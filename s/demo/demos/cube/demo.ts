@@ -1,6 +1,6 @@
 
 import {Mk} from "../../../mk/mk.js"
-import {Demo} from "../../harness/view.js"
+import {DemoFn} from "../../harness/view.js"
 import {makeLilCanvasView} from "../../harness/lil-canvas-view.js"
 
 import {Color3} from "@babylonjs/core/Maths/math.color.js"
@@ -10,7 +10,7 @@ import {ArcRotateCamera} from "@babylonjs/core/Cameras/arcRotateCamera.js"
 import {HemisphericLight} from "@babylonjs/core/Lights/hemisphericLight.js"
 import {StandardMaterial} from "@babylonjs/core/Materials/standardMaterial.js"
 
-export const cubeDemo: Demo = ["cube", async() => {
+export default <DemoFn>(async() => {
 	const mk = new Mk()
 	const canvas = mk.canvas()
 	const autoscaler = mk.autoscaler(canvas)
@@ -37,5 +37,5 @@ export const cubeDemo: Demo = ["cube", async() => {
 		demoView: makeLilCanvasView(canvas, afterFirstRender),
 		dispose: () => engine.stopRenderLoop(),
 	}
-}]
+})
 
