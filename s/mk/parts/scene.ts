@@ -15,7 +15,7 @@ export function makeScene(options: SimpleSceneOptions) {
 	const {
 		engine,
 		virtual = false,
-		background = Vec4.new(.1, .1, .1, 1),
+		background = Vec4.new(0, 0, 0, 0),
 	} = options
 
 	const scene = new Scene(engine, {

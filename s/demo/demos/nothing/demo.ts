@@ -4,7 +4,7 @@ import {cssReset, view} from "@e280/sly"
 import {Demo} from "../../harness/view.js"
 
 export const nothingDemo: Demo = ["nothing", async() => {
-	return view(use => () => {
+	const demoView = view(use => () => {
 		use.styles(cssReset, stylesCss)
 
 		return html`
@@ -12,6 +12,8 @@ export const nothingDemo: Demo = ["nothing", async() => {
 			<p>click a button below to load a demo</p>
 		`
 	})
+
+	return {demoView, dispose: () => {}}
 }]
 
 const stylesCss = css`

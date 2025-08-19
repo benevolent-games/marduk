@@ -26,7 +26,7 @@ export class Autoscaler {
 		this.#observer.observe(canvas)
 	}
 
-	recalibrate = () => {
+	rescale = () => {
 		const {canvas} = this
 		const rect = canvas.getBoundingClientRect()
 		const scale = this.fn(rect).clone().round()
@@ -36,7 +36,7 @@ export class Autoscaler {
 		return scale
 	}
 
-	reconsider = debounce(100, this.recalibrate)
+	reconsider = debounce(100, this.rescale)
 
 	dispose() {
 		this.#observer.disconnect()

@@ -2,7 +2,7 @@
 import {css, html} from "lit"
 import {cssReset, View, view, makeLoader, anims} from "@e280/sly"
 
-export type Demo = [name: string, loadDemoView: () => Promise<View<[]>>]
+export type Demo = [name: string, load: () => Promise<{demoView: View<[]>, dispose: () => void}>]
 
 const loader = makeLoader(anims.earth)
 
@@ -21,13 +21,14 @@ export const DemoHarness = view(use => (...demos: Demo[]) => {
 
 	const click = (newIndex: number) => async() => {
 		if (demoOp.isLoading) return null
+		if (demoOp.isReady) demoOp.require().dispose()
 		index(newIndex)
 		demoOp.fn(loadDemo)
 	}
 
 	return html`
 		<div class=pit>
-			${loader(demoOp, DemoView => DemoView.attr("class", "demo")())}
+			${loader(demoOp, ({demoView}) => demoView.attr("class", "demo")())}
 		</div>
 
 		<nav>
