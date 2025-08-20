@@ -1,10 +1,6 @@
 
 import {ev, sub} from "@e280/stz"
 
-export function makePointerlocker(...p: ConstructorParameters<typeof Pointerlocker>) {
-	return new Pointerlocker(...p)
-}
-
 export class Pointerlocker {
 	static make = (element: Element) => new this(element)
 

@@ -2,10 +2,6 @@
 import {Vec2} from "@benev/math"
 import {debounce, sub} from "@e280/stz"
 
-export function makeAutoscaler(...p: ConstructorParameters<typeof Autoscaler>) {
-	return new Autoscaler(...p)
-}
-
 export type AutoscaleFn = (rect: DOMRect) => Vec2
 
 export class Autoscaler {

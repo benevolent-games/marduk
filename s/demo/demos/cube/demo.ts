@@ -33,6 +33,8 @@ export default <DemoFn>(async() => {
 		scene.render()
 	})
 
+	scene.render()
+
 	return {
 		demoView: makeLilCanvasView(canvas, afterFirstRender),
 		dispose: () => engine.stopRenderLoop(),
