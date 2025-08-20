@@ -16,8 +16,8 @@ export class Autoscaler {
 			public readonly canvas: HTMLCanvasElement,
 			public fn: AutoscaleFn = Autoscaler.resolution(1),
 		) {
-		canvas.width = 0
-		canvas.height = 0
+		canvas.width = 1
+		canvas.height = 1
 		this.#observer = new ResizeObserver(() => this.reconsider())
 		this.#observer.observe(canvas)
 	}
@@ -26,8 +26,8 @@ export class Autoscaler {
 		const {canvas} = this
 		const rect = canvas.getBoundingClientRect()
 		const scale = this.fn(rect).clone().round()
-		canvas.width = Math.round(scale.x)
-		canvas.height = Math.round(scale.y)
+		canvas.width = Math.max(1, Math.round(scale.x))
+		canvas.height = Math.max(1, Math.round(scale.y))
 		this.on.pub(scale)
 		return scale
 	}
