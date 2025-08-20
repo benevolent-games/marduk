@@ -1,6 +1,6 @@
 
-import {looper} from "../../tools/looper.js"
 import {Figcycler} from "../layers/fig.js"
+import {looper} from "../../tools/looper.js"
 import {renderingWorker} from "../layers/rendering.js"
 import {DemoFigs, DemoPayload, DemoResult} from "./types.js"
 

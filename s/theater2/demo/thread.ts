@@ -13,7 +13,7 @@ export async function makeFrontstageThread(workerUrl: string) {
 		setupHost: () => ({
 			async deliver({bitmap}) {
 				if (canvas.isConnected && !isBitmapClosed(bitmap))
-				ctx.drawImage(bitmap, 0, 0)
+					ctx.drawImage(bitmap, 0, 0)
 				bitmap.close()
 			},
 		}),
