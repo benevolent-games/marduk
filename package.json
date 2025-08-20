@@ -37,12 +37,14 @@
 		"test-debug": "node inspect x/tests.test.js",
 		"count": "find s -path '*/_archive' -prune -o -name '*.ts' -exec wc -l {} +"
 	},
+	"peerDependencies": {
+		"@babylonjs/core": "^8.23.2",
+		"@babylonjs/loaders": "^8.23.2"
+	},
 	"dependencies": {
-		"@babylonjs/core": "^8.23.1",
-		"@babylonjs/loaders": "^8.23.1",
 		"@benev/math": "^0.0.0-3",
-		"@e280/comrade": "^0.0.0-23",
-		"@e280/renraku": "^0.5.0-29",
+		"@e280/comrade": "^0.0.0-24",
+		"@e280/renraku": "^0.5.0-30",
 		"@e280/sly": "^0.0.0",
 		"@e280/strata": "^0.0.1",
 		"@e280/stz": "^0.0.0",
