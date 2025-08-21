@@ -1,19 +1,22 @@
 
 import {denew, Scope} from "@e280/stz"
+
+import {makeCanvas} from "../theater2/utils/canvas.js"
+import {Autoscaler} from "../theater2/utils/autoscaler.js"
+import {Pointerlocker} from "../theater2/utils/pointerlocker.js"
+
 import {makeScene} from "./parts/scene.js"
-import {makeCanvas} from "./parts/canvas.js"
 import {makeEngine} from "./parts/engine.js"
-import {Autoscaler} from "./parts/autoscaler.js"
-import {Pointerlocker} from "./parts/pointerlocker.js"
 
 export class Mk {
 	#scope = new Scope()
 
 	canvas = makeCanvas
-	engine = this.#scope.keepFnAsync(makeEngine)
-	scene = this.#scope.keepFn(makeScene)
 	autoscaler = this.#scope.keepFn(denew(Autoscaler))
 	pointerlocker = this.#scope.keepFn(denew(Pointerlocker))
+
+	engine = this.#scope.keepFnAsync(makeEngine)
+	scene = this.#scope.keepFn(makeScene)
 
 	dispose = () => this.#scope.dispose()
 }

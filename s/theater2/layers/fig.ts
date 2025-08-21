@@ -61,3 +61,26 @@ export class Figcycler<Fs extends Figs> {
 	}
 }
 
+// TODO
+
+// export class Figbase<Fs extends Figs> {
+// 	#id = 0
+// 	#figs = new MapG<number, FigTuple<FigTuple<Fs>>>()
+//
+// 	create<K extends keyof Fs>(key: K, data: Fs[K]) {
+// 		const id = this.#id++
+// 		const tuple: FigTuple<Fs, K> = [key, data]
+//
+// 	}
+// }
+//
+// export class Figment<Data> {
+// 	#data: Data
+//
+// 	constructor(
+// 		public readonly id,
+// 		data: Data,
+// 		update: () => void
+// 	) {}
+// }
+//

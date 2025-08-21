@@ -3,13 +3,9 @@ import {Remote} from "@e280/renraku"
 import {AsSchematic, Comrade, SetupWork, Thread, ThreadOptions, WorkerOpts} from "@e280/comrade"
 
 export type RenderingSchematic<Payload, Result> = AsSchematic<{
-
-	// functions on the worker. main thread can call these.
 	work: {
 		supply: (payload: Payload) => Promise<void>
 	}
-
-	// functions on main thread. worker can call these.
 	host: {
 		deliver: (result: Result) => Promise<void>
 	}
