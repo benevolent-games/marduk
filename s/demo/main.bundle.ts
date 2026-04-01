@@ -8,4 +8,3 @@ dom.render(dom(".app"), DemoHarness(
 	["threaded-2d", async() => (await import("./demos/threaded-2d/demo.js")).default()],
 ))
 
-console.log("👁️ marduk")

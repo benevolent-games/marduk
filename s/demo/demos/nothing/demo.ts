@@ -17,6 +17,7 @@ export default <DemoFn>(async() => {
 })
 
 const stylesCss = css`
+
 :host {
 	display: flex;
 	flex-direction: column;

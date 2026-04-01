@@ -90,15 +90,13 @@
 
 	.app {
 		flex: 1 1 auto;
+		display: flex;
+		flex-direction: column;
 		min-height: 10em;
 		max-height: var(--y);
-		position: relative;
 
-		sly-view,
-		sly-shadow {
-			display: block;
-			position: absolute;
-			inset: 0;
+		[view="harness"] {
+			flex: 1 1 auto;
 		}
 	}
 }

@@ -4,12 +4,11 @@ import {
 	cssReset,
 	loaders,
 	shadow,
-	type ShadowView,
-	type View,
 	useCss,
 	useName,
 	useOp,
 	useSignal,
+	type ShadowView,
 } from "@e280/sly"
 
 export type Demo = [name: string, load: DemoFn]
@@ -73,6 +72,7 @@ const stylesCss = css`
 		inset 0.2em 0.3em 1em #0008,
 		inset 0.2em 0.3em 5em #0004;
 	border-radius: 1em;
+	overflow: clip;
 }
 
 .pit {
@@ -83,10 +83,8 @@ const stylesCss = css`
 	align-items: center;
 
 	.demo {
-		display: block;
 		flex: 1 1 auto;
 		width: 100%;
-		height: 100%;
 	}
 
 	[view="loading"] {

@@ -1,5 +1,5 @@
 
-name: 🚀 pages deploy
+name: 🚀 github-pages
 
 on:
   push:
