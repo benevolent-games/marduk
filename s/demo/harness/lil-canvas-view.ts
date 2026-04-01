@@ -1,12 +1,13 @@
 
 import {css} from "lit"
-import {cssReset, view} from "@e280/sly"
+import {cssReset, shadow, useCss, useMount, useRendered} from "@e280/sly"
 
 export function makeLilCanvasView(canvas: HTMLCanvasElement, afterFirstRender = () => {}) {
-	return view(use => () => {
-		use.styles(cssReset, stylesCss)
-		use.mount(() => {
-			use.rendered.then(afterFirstRender)
+	return shadow(() => {
+		useCss(cssReset, stylesCss)
+		const rendered = useRendered()
+		useMount(() => {
+			rendered.then(afterFirstRender)
 			return () => {}
 		})
 		return canvas
@@ -26,4 +27,3 @@ const stylesCss = css`
 		height: 100%;
 	}
 `
-

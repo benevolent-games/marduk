@@ -3,7 +3,7 @@ import {Scene} from "@babylonjs/core/scene.js"
 import {Camera} from "@babylonjs/core/Cameras/camera.js"
 import {GlowLayer} from "@babylonjs/core/Layers/glowLayer.js"
 import {Color3, Color4} from "@babylonjs/core/Maths/math.color.js"
-import {TonemappingOperator} from "@babylonjs/core/PostProcesses/tonemapPostProcess.js"
+import {TonemappingOperator} from "@babylonjs/core/PostProcesses/thinTonemapPostProcess.js"
 import {ImageProcessingConfiguration} from "@babylonjs/core/Materials/imageProcessingConfiguration.js"
 import {SSRRenderingPipeline} from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/ssrRenderingPipeline.js"
 import {PostProcessRenderPipeline} from "@babylonjs/core/PostProcesses/RenderPipeline/postProcessRenderPipeline.js"
@@ -253,4 +253,3 @@ export function setup_effects(scene: Scene, effects: Partial<Effects>, camera: C
 		},
 	}
 }
-

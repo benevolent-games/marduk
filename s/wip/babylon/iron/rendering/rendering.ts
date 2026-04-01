@@ -1,6 +1,6 @@
 
 import {sub} from "@e280/stz"
-import {Degrees} from "@benev/math"
+import {degrees} from "@benev/math"
 
 import {Scene} from "@babylonjs/core/scene.js"
 import {Camera} from "@babylonjs/core/Cameras/camera.js"
@@ -36,7 +36,7 @@ export class Rendering {
 
 		this.fallbackCamera = (() => {
 			const alpha = 0
-			const beta = Degrees.toRadians(60)
+			const beta = degrees.toRadians(60)
 			const radius = 2
 			const target = new Vector3(0, 1.5, 0)
 			return new ArcRotateCamera(

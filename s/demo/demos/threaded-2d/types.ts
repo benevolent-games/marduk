@@ -1,15 +1,14 @@
 
-import {Vec2Array} from "@benev/math"
+import {XyArray} from "@benev/math"
 import {AsFigs, FigSyncs} from "../../../theater2/layers/fig.js"
 
 export type DemoFigs = AsFigs<{
 	canvas: {
 		play: boolean
-		dimensions: Vec2Array
+		dimensions: XyArray
 	}
 	timestamp: number
 }>
 
 export type DemoPayload = FigSyncs<DemoFigs>
 export type DemoResult = {bitmap: ImageBitmap}
-

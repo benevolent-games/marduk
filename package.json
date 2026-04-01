@@ -26,7 +26,7 @@
 	},
 	"scripts": {
 		"build": "run-s _clean _tsc _ln _scute",
-		"_clean": "rm -rf x && s/delete-babylon-indexes",
+		"_clean": "rm -rf x && bash s/delete-babylon-indexes",
 		"_tsc": "tsc",
 		"_scute": "scute -v",
 		"start": "octo 'scute -vw' 'tsc -w' 'node --watch x/tests.test.js' 'http-server x -c-1'",
@@ -38,24 +38,25 @@
 		"count": "find s -path '*/_archive' -prune -o -name '*.ts' -exec wc -l {} +"
 	},
 	"peerDependencies": {
-		"@babylonjs/core": "^8.23.2",
-		"@babylonjs/loaders": "^8.23.2"
+		"@babylonjs/core": "^9.0.0",
+		"@babylonjs/loaders": "^9.0.0"
 	},
 	"dependencies": {
-		"@benev/math": "^0.0.0-3",
-		"@e280/comrade": "^0.0.0-24",
-		"@e280/renraku": "^0.5.0-30",
-		"@e280/sly": "^0.0.1",
-		"@e280/strata": "^0.0.1",
-		"@e280/stz": "^0.0.0",
-		"lit": "^3.3.1"
+		"@benev/math": "^0.3.0-5",
+		"@e280/comrade": "^0.1.0",
+		"@e280/renraku": "^0.5.7",
+		"@e280/sly": "^0.3.1",
+		"@e280/strata": "^0.3.1",
+		"@e280/stz": "^0.2.27",
+		"lit": "^3.3.2"
 	},
 	"devDependencies": {
-		"@e280/science": "^0.0.6",
-		"@e280/scute": "^0.0.0",
+		"@e280/octo": "^0.1.0",
+		"@e280/science": "^0.1.9",
+		"@e280/scute": "^0.3.1",
 		"http-server": "^14.1.1",
 		"npm-run-all": "^4.1.5",
-		"typescript": "^5.9.2"
+		"typescript": "^6.0.2"
 	},
 	"repository": {
 		"type": "git",

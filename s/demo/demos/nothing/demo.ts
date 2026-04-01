@@ -1,11 +1,11 @@
 
 import {css, html} from "lit"
-import {cssReset, view} from "@e280/sly"
+import {cssReset, shadow, useCss} from "@e280/sly"
 import {DemoFn} from "../../harness/view.js"
 
 export default <DemoFn>(async() => {
-	const demoView = view(use => () => {
-		use.styles(cssReset, stylesCss)
+	const demoView = shadow(() => {
+		useCss(cssReset, stylesCss)
 		return html`
 			<img src="/assets/b.svg" alt=""/>
 			<h2>marduk demos</h2>
@@ -37,4 +37,3 @@ h2 {
 	font-size: 2em;
 }
 `
-

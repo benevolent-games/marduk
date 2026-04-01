@@ -1,5 +1,5 @@
 
-import {Vec3Array} from "@benev/math"
+import {XyzArray} from "@benev/math"
 import {PostProcessRenderPipeline} from "@babylonjs/core/PostProcesses/RenderPipeline/postProcessRenderPipeline.js"
 
 export type EffectRig = {
@@ -19,7 +19,7 @@ export type ImageProcessingEffects = {
 	}
 
 	vignette: {
-		color: Vec3Array
+		color: XyzArray
 		stretch: number
 		weight: number
 		multiply: boolean
@@ -57,8 +57,8 @@ export type DefaultPipelineEffects = {
 
 export type Effects = {
 	scene: {
-		clearColor: Vec3Array
-		ambientColor: Vec3Array
+		clearColor: XyzArray
+		ambientColor: XyzArray
 		environmentIntensity: number
 		shadowsEnabled: boolean
 		forceWireframe: boolean
@@ -74,7 +74,7 @@ export type Effects = {
 
 	fog: {
 		mode: "none" | "exp" | "exp2" | "linear"
-		color: Vec3Array
+		color: XyzArray
 		start: number
 		end: number
 		density: number
@@ -140,4 +140,3 @@ export type Effects = {
 		blur_noise: boolean
 	}
 } & DefaultPipelineEffects
-

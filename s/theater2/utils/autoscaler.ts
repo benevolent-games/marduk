@@ -25,7 +25,7 @@ export class Autoscaler {
 	rescale = () => {
 		const {canvas} = this
 		const rect = canvas.getBoundingClientRect()
-		const scale = this.fn(rect).clone().round()
+		const scale = this.fn(rect).dup().round()
 		canvas.width = Math.max(1, Math.round(scale.x))
 		canvas.height = Math.max(1, Math.round(scale.y))
 		this.on.pub(scale)

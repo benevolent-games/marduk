@@ -1,35 +1,48 @@
 
 import {css, html} from "lit"
-import {cssReset, View, view, makeLoader, anims} from "@e280/sly"
+import {
+	cssReset,
+	loaders,
+	shadow,
+	type ShadowView,
+	type View,
+	useCss,
+	useName,
+	useOp,
+	useSignal,
+} from "@e280/sly"
 
 export type Demo = [name: string, load: DemoFn]
-export type DemoFn = () => Promise<{demoView: View<[]>, dispose: () => void}>
+export type DemoFn = () => Promise<{demoView: ShadowView<[]>, dispose: () => void}>
 
-const loader = makeLoader(anims.earth)
+const loader = loaders.make(loaders.anims.earth)
 
-export const DemoHarness = view(use => (...demos: Demo[]) => {
-	use.name("harness")
-	use.styles(cssReset, stylesCss)
+export const DemoHarness = shadow((...demos: Demo[]) => {
+	useName("harness")
+	useCss(cssReset, stylesCss)
 
-	const index = use.signal(0)
+	const index = useSignal(0)
 
 	async function loadDemo() {
 		const [,load] = demos.at(index())!
 		return load()
 	}
 
-	const demoOp = use.op(loadDemo)
+	const demoOp = useOp(loadDemo)
 
 	const click = (newIndex: number) => async() => {
 		if (demoOp.isLoading) return null
 		if (demoOp.isReady) demoOp.require().dispose()
 		index(newIndex)
-		demoOp.fn(loadDemo)
+		await demoOp.load(loadDemo)
 	}
 
 	return html`
 		<div class=pit>
-			${loader(demoOp, ({demoView}) => demoView.attr("class", "demo")())}
+			${loader(demoOp, ({demoView}) => demoView.with({
+				props: [],
+				attrs: {class: "demo"},
+			}))}
 		</div>
 
 		<nav>
@@ -99,4 +112,3 @@ nav {
 	}
 }
 `
-

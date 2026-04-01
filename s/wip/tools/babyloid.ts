@@ -1,6 +1,5 @@
 
-import {QuatArray, Vec3Array} from "@benev/math"
-
+import {XyzArray, XyzwArray} from "@benev/math"
 import {Node} from "@babylonjs/core/node.js"
 import {Mesh} from "@babylonjs/core/Meshes/mesh.js"
 import {InstancedMesh} from "@babylonjs/core/Meshes/instancedMesh.js"
@@ -26,14 +25,14 @@ export const babyloid = {
 
 	/** convert to toolbox maths. */
 	to: {
-		vec3: ({x, y, z}: Vector3): Vec3Array => [x, y, z],
-		quat: ({x, y, z, w}: Quaternion): QuatArray => [x, y, z, w],
+		vec3: ({x, y, z}: Vector3): XyzArray => [x, y, z],
+		quat: ({x, y, z, w}: Quaternion): XyzwArray => [x, y, z, w],
 	},
 
 	/** convert to babylon maths. */
 	from: {
-		vec3: (v: Vec3Array) => new Vector3(...v),
-		quat: (q: QuatArray) => new Quaternion(...q),
+		vec3: (v: XyzArray) => new Vector3(...v),
+		quat: (q: XyzwArray) => new Quaternion(...q),
 	},
 
 	/** obtain a toolbox quat from a babylon transform node. */
