@@ -83,6 +83,8 @@ const stylesCss = css`
 	align-items: center;
 
 	.demo {
+		display: block;
+		flex: 1 1 auto;
 		width: 100%;
 		height: 100%;
 	}

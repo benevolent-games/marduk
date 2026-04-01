@@ -20,21 +20,24 @@ export default <DemoFn>(async() => {
 		setupHost: () => ({
 			async deliver({bitmap}) {
 				if (isBitmapClosed(bitmap)) return
-				if (latestBitmap) bitmap.close()
+				if (latestBitmap) latestBitmap.close()
 				latestBitmap = bitmap
 			},
 		}),
 	})
 
 	const stop = rafloop(async() => {
+		await thread.work.supply([
+			[0, ["canvas", {play: true, dimensions: [canvas.width, canvas.height]}]],
+			[1, ["timestamp", performance.now()]],
+		])
+
 		if (canvas.isConnected && latestBitmap && !isBitmapClosed(latestBitmap)) {
 			ctx.drawImage(latestBitmap, 0, 0)
 			latestBitmap.close()
 			latestBitmap = undefined
 		}
 	})
-
-	// thread.work.supply()
 
 	return {
 		demoView: makeLilCanvasView(canvas, afterFirstRender),
@@ -44,4 +47,3 @@ export default <DemoFn>(async() => {
 		},
 	}
 })
-
