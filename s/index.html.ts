@@ -16,7 +16,7 @@ export default template(import.meta.url, async orb => html`
 			<style>@layer base{html{background:#000}}</style>
 			<meta data-version="${orb.packageVersion()}" />
 
-			<title>scute</title>
+			<title>${title}</title>
 			<link rel="icon" href="${dataSvgEmoji("👑")}"/>
 			<link rel="stylesheet" href="${orb.hashurl("demo/main.css")}"/>
 			<script type="module" src="${orb.hashurl("demo/main.bundle.min.js")}"></script>
